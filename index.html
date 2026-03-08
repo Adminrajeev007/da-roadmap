@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Data Analyst Roadmap</title>
+
+<style>
+body{
+background:#0A0A0F;
+color:#E8E8F0;
+font-family:Segoe UI;
+margin:0;
+}
+
+header{
+text-align:center;
+padding:40px;
+border-bottom:1px solid #222;
+}
+
+h1{
+color:#FF6B35;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:30px;
+}
+
+.phase{
+background:#111120;
+border-radius:10px;
+margin-bottom:20px;
+padding:20px;
+border:1px solid #222;
+}
+
+.phase h2{
+margin-top:0;
+color:#FF6B35;
+}
+
+.topic{
+display:flex;
+align-items:center;
+gap:10px;
+padding:8px;
+background:#0d0d1a;
+margin-bottom:6px;
+border-radius:6px;
+}
+
+.topic.completed{
+opacity:.5;
+text-decoration:line-through;
+}
+
+.progress{
+background:#111;
+height:10px;
+border-radius:10px;
+overflow:hidden;
+margin-bottom:25px;
+}
+
+.progress-bar{
+height:10px;
+background:#FF6B35;
+width:0%;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Data Analyst Roadmap</h1>
+<p>Track your progress</p>
+</header>
+
+<div class="container">
+
+<h3>Progress</h3>
+<div class="progress">
+<div class="progress-bar" id="progress"></div>
+</div>
+
+<div id="roadmap"></div>
+
+</div>
+
+<script>
+
+const roadmap = [
+{
+title:"SQL — Your #1 Weapon",
+topics:[
+"SELECT, WHERE, ORDER BY",
+"GROUP BY + Aggregate Functions",
+"JOINs",
+"Subqueries & CTEs",
+"Window Functions",
+"CASE WHEN"
+]
+},
+{
+title:"Excel / Google Sheets",
+topics:[
+"VLOOKUP / XLOOKUP",
+"PivotTables",
+"IF, SUMIF, COUNTIF",
+"Charts",
+"Data Cleaning",
+"Conditional Formatting"
+]
+},
+{
+title:"Python for Data Analysis",
+topics:[
+"Python Basics",
+"Pandas",
+"NumPy",
+"Matplotlib / Seaborn",
+"Data Cleaning",
+"Exploratory Data Analysis"
+]
+},
+{
+title:"Data Visualization",
+topics:[
+"Connecting Data",
+"Charts",
+"Filters",
+"Calculated Fields",
+"Dashboard Design",
+"Publishing Dashboards"
+]
+},
+{
+title:"Statistics",
+topics:[
+"Mean Median Mode",
+"Correlation vs Causation",
+"Normal Distribution",
+"Hypothesis Testing",
+"Percentiles"
+]
+},
+{
+title:"Portfolio",
+topics:[
+"GitHub Profile",
+"2–3 Projects",
+"Tableau Dashboard",
+"Resume",
+"LinkedIn",
+"Project Ideas"
+]
+}
+];
+
+const roadmapDiv=document.getElementById("roadmap");
+
+let totalTopics=0;
+
+roadmap.forEach((phase,pIndex)=>{
+
+const div=document.createElement("div");
+div.className="phase";
+
+let html=`<h2>${phase.title}</h2>`;
+
+phase.topics.forEach((topic,tIndex)=>{
+
+const id=`${pIndex}-${tIndex}`;
+totalTopics++;
+
+html+=`
+<div class="topic" id="topic-${id}">
+<input type="checkbox" id="${id}" onchange="toggleTopic('${id}')">
+<label>${topic}</label>
+</div>
+`;
+
+});
+
+div.innerHTML=html;
+
+roadmapDiv.appendChild(div);
+
+});
+
+function toggleTopic(id){
+
+const checkbox=document.getElementById(id);
+const topic=document.getElementById("topic-"+id);
+
+localStorage.setItem(id,checkbox.checked);
+
+if(checkbox.checked){
+topic.classList.add("completed");
+}else{
+topic.classList.remove("completed");
+}
+
+updateProgress();
+
+}
+
+function loadProgress(){
+
+for(let i=0;i<localStorage.length;i++){
+
+const key=localStorage.key(i);
+const value=localStorage.getItem(key);
+
+const checkbox=document.getElementById(key);
+const topic=document.getElementById("topic-"+key);
+
+if(checkbox){
+checkbox.checked=value==="true";
+
+if(value==="true"){
+topic.classList.add("completed");
+}
+}
+
+}
+
+updateProgress();
+
+}
+
+function updateProgress(){
+
+let completed=0;
+
+for(let i=0;i<totalTopics;i++){}
+
+document.querySelectorAll("input[type=checkbox]").forEach(cb=>{
+if(cb.checked)completed++;
+});
+
+const percent=(completed/totalTopics)*100;
+
+document.getElementById("progress").style.width=percent+"%";
+
+}
+
+loadProgress();
+
+</script>
+
+</body>
+</html>
