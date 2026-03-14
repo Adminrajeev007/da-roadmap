@@ -76,7 +76,7 @@ tr:last-child td{border-bottom:none;}
    Filters are BELOW sticky, scroll away
 ═══════════════════════════════════════════ */
 #pv{display:none;flex-direction:column;min-height:100vh;}
-#pv.on{display:flex;}
+#pv.on{display:flex;margin-left:var(--sw);}
 
 /* The ONE sticky bar — kept to ~42px */
 .pbar{
@@ -216,6 +216,9 @@ tr:last-child td{border-bottom:none;}
     <div class="pzni" id="pzni" onclick="oPrac()">
       <span class="ic">🎯</span>Interview Questions<span class="bdg" id="qbadge">0</span>
     </div>
+  </div>
+  <div style="padding:14px 14px 18px;margin-top:auto;border-top:1px solid var(--bo);">
+    <button onclick="resetProgress()" style="width:100%;background:transparent;border:1px solid var(--bo);border-radius:7px;padding:7px 10px;color:var(--mu);font-size:10px;font-family:'Space Mono',monospace;cursor:pointer;transition:all .18s;" onmouseover="this.style.borderColor='var(--a2)';this.style.color='var(--a2)'" onmouseout="this.style.borderColor='var(--bo)';this.style.color='var(--mu)'">⚠ Reset All Progress</button>
   </div>
 </nav>
 
@@ -817,9 +820,32 @@ Revenue = 50000 + 2.5×Ad_Spend + 1200×New_Customers</div><p><strong>Interpreta
 document.getElementById('qbadge').textContent=PQ.length;
 
 // ══════════════════════════════════
-// STATE
+// STATE — persisted via localStorage
 // ══════════════════════════════════
-let cur=0,done=new Set(),solved=new Set(),actCat='All',actDiff='All';
+const LS_KEY = 'da_roadmap_v1';
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return { cur:0, done:[], solved:[], cat:'All', diff:'All' };
+    return JSON.parse(raw);
+  } catch(e) { return { cur:0, done:[], solved:[], cat:'All', diff:'All' }; }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify({
+      cur, done:[...done], solved:[...solved], cat:actCat, diff:actDiff
+    }));
+  } catch(e) {}
+}
+
+const _s = loadState();
+let cur     = _s.cur   || 0;
+let done    = new Set(_s.done   || []);
+let solved  = new Set(_s.solved || []);
+let actCat  = _s.cat   || 'All';
+let actDiff = _s.diff  || 'All';
 
 // ══════════════════════════════════
 // SIDEBAR
@@ -831,7 +857,8 @@ function closeSB(){document.getElementById('sb').classList.remove('op');document
 // TOPICS
 // ══════════════════════════════════
 function render(i){
-  cur=i;const t=T[i];
+  cur=i; saveState();
+  const t=T[i];
   document.getElementById('ca').innerHTML=t.html;
   document.getElementById('ttag').textContent=t.tag;
   document.getElementById('ttitle').textContent=t.title;
@@ -841,7 +868,7 @@ function render(i){
 function nT(){if(cur<T.length-1)render(cur+1);}
 function pT(){if(cur>0)render(cur-1);}
 function mD(){
-  done.add(cur);
+  done.add(cur); saveState();
   document.querySelectorAll('.ni[data-t]')[cur].classList.add('dn');
   const pct=Math.round(done.size/T.length*100);
   document.getElementById('pi').style.width=pct+'%';
@@ -874,13 +901,13 @@ function cPrac(){
   render(cur);
 }
 function fC(c){
-  actCat=c;
+  actCat=c; saveState();
   document.querySelectorAll('.ft[data-c]').forEach(t=>t.classList.remove('af'));
   document.querySelector(`.ft[data-c="${c}"]`).classList.add('af');
   renderQL();
 }
 function fD(d){
-  actDiff=d;
+  actDiff=d; saveState();
   document.querySelectorAll('.ft[data-d]').forEach(t=>t.classList.remove('af'));
   document.querySelector(`.ft[data-d="${d}"]`).classList.add('af');
   renderQL();
@@ -918,15 +945,51 @@ function renderQL(){
 }
 function tQ(id){document.getElementById(`qc${id}`).classList.toggle('op');}
 function markS(id){
-  solved.add(id);
+  solved.add(id); saveState();
   const btn=document.getElementById(`mb${id}`);
   if(btn){btn.classList.add('mk');btn.textContent='✓ Solved';btn.style.pointerEvents='none';}
   document.getElementById(`qc${id}`)?.classList.add('sv');
   document.getElementById('sd').textContent=`✓ ${solved.size} solved`;
   renderChips();
 }
-Object.assign(window,{ans,nT,pT,mD,oPrac,cPrac,fC,fD,tQ,markS,openSB,closeSB});
-render(0);
+function resetProgress(){
+  if(!confirm('Reset ALL progress? This will clear completed topics and solved questions.')) return;
+  localStorage.removeItem(LS_KEY);
+  location.reload();
+}
+
+// ══════════════════════════════════
+// BOOT — restore saved state
+// ══════════════════════════════════
+function bootRestore(){
+  // restore topic progress
+  done.forEach(i=>{
+    const el=document.querySelectorAll('.ni[data-t]')[i];
+    if(el) el.classList.add('dn');
+  });
+  if(done.size>0){
+    const pct=Math.round(done.size/T.length*100);
+    document.getElementById('pi').style.width=pct+'%';
+    document.getElementById('pl').textContent=`${done.size} / ${T.length} done`;
+  }
+  // restore solved count badge
+  if(solved.size>0) document.getElementById('sd').textContent=`✓ ${solved.size} solved`;
+  // restore active filter state in DOM
+  if(actCat!=='All'){
+    document.querySelectorAll('.ft[data-c]').forEach(t=>t.classList.remove('af'));
+    const el=document.querySelector(`.ft[data-c="${actCat}"]`);
+    if(el) el.classList.add('af');
+  }
+  if(actDiff!=='All'){
+    document.querySelectorAll('.ft[data-d]').forEach(t=>t.classList.remove('af'));
+    const el=document.querySelector(`.ft[data-d="${actDiff}"]`);
+    if(el) el.classList.add('af');
+  }
+}
+
+Object.assign(window,{ans,nT,pT,mD,oPrac,cPrac,fC,fD,tQ,markS,resetProgress,openSB,closeSB});
+bootRestore();
+render(cur);
 </script>
 </body>
 </html>
