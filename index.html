@@ -1,257 +1,1897 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Data Analyst Roadmap</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Data Analyst Roadmap — Internship Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-body{
-background:#0A0A0F;
-color:#E8E8F0;
-font-family:Segoe UI;
-margin:0;
+:root{
+  --bg:#0a0a0f;--su:#111118;--ca:#16161f;--bo:#2a2a3a;
+  --a1:#00e5ff;--a2:#ff6b6b;--a3:#a78bfa;--a4:#34d399;--a5:#f9a86b;--a6:#f472b6;
+  --tx:#e8e8f0;--mu:#6b6b80;--hd:#ffffff;
+  --sw:262px;
 }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--tx);font-family:'Syne',sans-serif;min-height:100vh;overflow-x:hidden;}
 
-header{
-text-align:center;
-padding:40px;
-border-bottom:1px solid #222;
+/* ── OVERLAY ── */
+#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:150;backdrop-filter:blur(3px);}
+#ov.on{display:block;}
+
+/* ── SIDEBAR ── */
+#sb{
+  width:var(--sw);background:var(--su);border-right:1px solid var(--bo);
+  display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;
+  overflow-y:auto;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1);
+  scrollbar-width:thin;scrollbar-color:var(--bo) transparent;
 }
-
-h1{
-color:#FF6B35;
+#sb::-webkit-scrollbar{width:3px;}
+#sb::-webkit-scrollbar-thumb{background:var(--bo);}
+.sh{padding:18px 16px 12px;border-bottom:1px solid var(--bo);flex-shrink:0;}
+.logo{font-size:15px;font-weight:800;color:var(--a1);letter-spacing:-.3px;line-height:1.3;}
+.logo b{color:var(--a2);}
+.sub{font-size:9px;color:var(--mu);margin-top:2px;font-family:'Space Mono',monospace;}
+.pob{background:var(--bo);border-radius:99px;height:4px;margin:9px 0 2px;}
+.poi{height:4px;border-radius:99px;background:linear-gradient(90deg,var(--a1),var(--a3));transition:width .5s;}
+.pol{font-size:9px;color:var(--mu);font-family:'Space Mono',monospace;}
+.ng{padding:4px 0;}
+.nl{font-size:9px;letter-spacing:1.5px;color:var(--mu);padding:7px 16px 2px;font-family:'Space Mono',monospace;text-transform:uppercase;}
+.ni{
+  display:flex;align-items:center;gap:8px;padding:8px 16px;cursor:pointer;
+  font-size:12.5px;font-weight:600;color:var(--mu);transition:all .18s;
+  border-left:3px solid transparent;user-select:none;
 }
-
-.container{
-max-width:900px;
-margin:auto;
-padding:30px;
+.ni:hover{background:var(--ca);color:var(--tx);}
+.ni.on{background:rgba(0,229,255,.07);color:var(--a1);border-left-color:var(--a1);}
+.ni .ic{font-size:14px;min-width:18px;}
+.ni .ck{margin-left:auto;font-size:10px;color:var(--a4);display:none;}
+.ni.dn .ck{display:block;}
+.pzn{border-top:2px solid rgba(0,229,255,.25);margin-top:6px;padding-top:2px;}
+.pzni{
+  display:flex;align-items:center;gap:8px;padding:9px 16px;cursor:pointer;
+  font-size:13px;font-weight:700;color:var(--a1);transition:all .18s;
+  border-left:3px solid transparent;
 }
+.pzni:hover{background:rgba(0,229,255,.08);}
+.pzni.on{background:rgba(0,229,255,.1);border-left-color:var(--a1);}
+.badge{background:var(--a1);color:#000;font-size:9px;padding:1px 6px;border-radius:99px;font-weight:800;margin-left:auto;}
 
-.phase{
-background:#111120;
-border-radius:10px;
-margin-bottom:20px;
-padding:20px;
-border:1px solid #222;
+/* ── MAIN ── */
+#mn{margin-left:var(--sw);display:flex;flex-direction:column;min-height:100vh;}
+.hb{display:none;position:fixed;top:10px;left:10px;z-index:300;background:var(--su);border:1px solid var(--bo);border-radius:9px;padding:8px 10px;cursor:pointer;font-size:18px;line-height:1;}
+
+/* ── TOPBAR ── */
+.tb{
+  background:var(--su);border-bottom:1px solid var(--bo);padding:12px 32px;
+  display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;flex-wrap:wrap;
 }
+.tc{background:var(--ca);border:1px solid var(--bo);border-radius:6px;padding:3px 10px;font-size:11px;font-family:'Space Mono',monospace;color:var(--a1);white-space:nowrap;}
+.tt{font-size:16px;font-weight:700;color:var(--hd);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn{background:var(--a1);color:#000;border:none;border-radius:7px;padding:7px 16px;font-weight:700;font-size:12px;font-family:'Syne',sans-serif;cursor:pointer;transition:opacity .2s;white-space:nowrap;}
+.btn:hover{opacity:.82;}
+.btn.s{background:transparent;color:var(--a1);border:1px solid var(--a1);}
 
-.phase h2{
-margin-top:0;
-color:#FF6B35;
+/* ── CONTENT ── */
+.lc{padding:28px 36px;max-width:820px;width:100%;}
+.nf{padding:16px 36px 32px;display:flex;gap:10px;border-top:1px solid var(--bo);max-width:820px;}
+h1{font-size:28px;font-weight:800;color:var(--hd);line-height:1.2;margin-bottom:6px;}
+.tg{font-size:12px;color:var(--mu);font-family:'Space Mono',monospace;margin-bottom:20px;}
+.bc{font-size:11px;color:var(--mu);font-family:'Space Mono',monospace;margin-bottom:16px;}
+.bc span{color:var(--a1);}
+.sc{background:var(--ca);border:1px solid var(--bo);border-radius:12px;padding:20px;margin-bottom:16px;}
+.sc h2{font-size:15px;font-weight:700;color:var(--a1);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.sc p,.sc li{font-size:13.5px;line-height:1.75;color:#c4c4d4;}
+.sc ul,.sc ol{padding-left:18px;margin-top:7px;}
+.sc li{margin-bottom:5px;}
+.cb{background:#0c0c17;border:1px solid var(--bo);border-radius:9px;padding:14px 18px;font-family:'Space Mono',monospace;font-size:11.5px;color:#a8d8ea;overflow-x:auto;margin:10px 0;line-height:1.7;white-space:pre;}
+.cb .kw{color:var(--a3);}.cb .st{color:var(--a4);}.cb .cm{color:var(--mu);}.cb .fn{color:var(--a2);}.cb .nm{color:var(--a5);}
+.tip{background:rgba(0,229,255,.06);border-left:3px solid var(--a1);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12.5px;color:var(--tx);}
+.wrn{background:rgba(255,107,107,.06);border-left:3px solid var(--a2);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0;font-size:12.5px;color:var(--tx);}
+.pr{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.pi{background:var(--bo);border-radius:99px;padding:4px 12px;font-size:11px;font-family:'Space Mono',monospace;color:var(--tx);}
+.pi.a1{background:rgba(0,229,255,.13);color:var(--a1);}
+.pi.a2{background:rgba(255,107,107,.13);color:var(--a2);}
+.pi.a3{background:rgba(167,139,250,.13);color:var(--a3);}
+.pi.a4{background:rgba(52,211,153,.13);color:var(--a4);}
+.tw{overflow-x:auto;margin:10px 0;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{background:var(--bo);color:var(--a1);font-family:'Space Mono',monospace;padding:8px 12px;text-align:left;font-size:10px;letter-spacing:1px;}
+td{padding:9px 12px;border-bottom:1px solid var(--bo);color:#c4c4d4;vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+.qb{background:var(--su);border:1px solid var(--bo);border-radius:12px;padding:18px 20px;margin:16px 0;}
+.qb h3{font-size:12px;color:var(--a3);margin-bottom:12px;font-family:'Space Mono',monospace;}
+.qq{font-size:14px;font-weight:600;color:var(--hd);margin-bottom:12px;}
+.qo{display:flex;flex-direction:column;gap:7px;}
+.qopt{background:var(--ca);border:1px solid var(--bo);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:13px;transition:all .18s;display:flex;align-items:center;gap:8px;}
+.qopt:hover{border-color:var(--a3);color:var(--a3);}
+.qopt.ok{border-color:var(--a4);background:rgba(52,211,153,.08);color:var(--a4);}
+.qopt.no{border-color:var(--a2);background:rgba(255,107,107,.08);color:var(--a2);}
+.qr{margin-top:10px;font-size:12.5px;padding:9px 13px;border-radius:7px;display:none;}
+.qr.sh{display:block;}.qr.ok{background:rgba(52,211,153,.1);color:var(--a4);}.qr.no{background:rgba(255,107,107,.1);color:var(--a2);}
+
+/* ── PRACTICE ── */
+#pv{display:none;flex-direction:column;min-height:100vh;}
+#pv.on{display:flex;}
+.pb{background:var(--su);border-bottom:1px solid var(--bo);padding:12px 32px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:50;flex-wrap:wrap;}
+.pbt{font-size:15px;font-weight:700;color:var(--hd);}
+.sp{background:var(--ca);border:1px solid var(--bo);border-radius:7px;padding:5px 12px;font-family:'Space Mono',monospace;font-size:11px;color:var(--a4);white-space:nowrap;}
+.fs{background:var(--su);border-bottom:1px solid var(--bo);padding:10px 32px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;row-gap:6px;}
+.fl{font-size:9px;color:var(--mu);font-family:'Space Mono',monospace;margin-right:2px;}
+.ft{padding:4px 11px;border-radius:99px;border:1px solid var(--bo);background:var(--ca);color:var(--mu);font-size:11px;font-weight:600;cursor:pointer;transition:all .18s;font-family:'Syne',sans-serif;white-space:nowrap;}
+.ft:hover{color:var(--tx);border-color:var(--tx);}
+.ft.af{color:#000;font-weight:700;}
+.ft[data-c="All"].af,.ft[data-d="All"].af{background:var(--a1);border-color:var(--a1);}
+.ft[data-c="Basics"].af{background:#22d3ee;border-color:#22d3ee;}
+.ft[data-c="SQL"].af{background:var(--a2);border-color:var(--a2);}
+.ft[data-c="Python"].af{background:var(--a4);border-color:var(--a4);}
+.ft[data-c="Excel"].af{background:#60a5fa;border-color:#60a5fa;}
+.ft[data-c="Statistics"].af{background:var(--a3);border-color:var(--a3);}
+.ft[data-c="Case Study"].af{background:var(--a5);border-color:var(--a5);}
+.ft[data-c="Behavioral"].af{background:var(--a6);border-color:var(--a6);}
+.ft[data-d="Easy"].af{background:var(--a4);border-color:var(--a4);}
+.ft[data-d="Medium"].af{background:var(--a5);border-color:var(--a5);}
+.ft[data-d="Hard"].af{background:var(--a2);border-color:var(--a2);}
+.dv{width:1px;height:18px;background:var(--bo);margin:0 3px;}
+.pc{padding:20px 32px;max-width:860px;width:100%;}
+.sr{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.scard{background:var(--ca);border:1px solid var(--bo);border-radius:9px;padding:10px 16px;font-family:'Space Mono',monospace;font-size:11px;color:var(--mu);cursor:pointer;flex:1;min-width:90px;}
+.scard .sn{font-size:20px;font-weight:700;display:block;margin-bottom:1px;}
+.qc{background:var(--ca);border:1px solid var(--bo);border-radius:12px;overflow:hidden;transition:border-color .2s;}
+.qc:hover{border-color:#3a3a5a;}
+.qc.sv{border-color:rgba(52,211,153,.3);}
+.qh{padding:16px 18px 12px;display:flex;align-items:flex-start;gap:10px;cursor:pointer;user-select:none;}
+.qn{font-family:'Space Mono',monospace;font-size:10px;color:var(--mu);min-width:28px;padding-top:2px;}
+.qbd{flex:1;}
+.qt{font-size:13.5px;font-weight:600;color:var(--hd);line-height:1.55;margin-bottom:8px;}
+.qm{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.db{font-size:9px;font-weight:700;font-family:'Space Mono',monospace;padding:2px 9px;border-radius:99px;letter-spacing:.4px;}
+.db.Easy{background:rgba(52,211,153,.15);color:var(--a4);}
+.db.Medium{background:rgba(249,168,107,.15);color:var(--a5);}
+.db.Hard{background:rgba(255,107,107,.15);color:var(--a2);}
+.ctb{font-size:9px;font-family:'Space Mono',monospace;padding:2px 9px;border-radius:99px;font-weight:600;}
+.ctb.Basics{background:rgba(34,211,238,.12);color:#22d3ee;}
+.ctb.SQL{background:rgba(255,107,107,.12);color:var(--a2);}
+.ctb.Python{background:rgba(52,211,153,.12);color:var(--a4);}
+.ctb.Excel{background:rgba(96,165,250,.12);color:#60a5fa;}
+.ctb.Statistics{background:rgba(167,139,250,.12);color:var(--a3);}
+.ctb.CaseStudy{background:rgba(249,168,107,.12);color:var(--a5);}
+.ctb.Behavioral{background:rgba(244,114,182,.12);color:var(--a6);}
+.co{background:var(--su);border:1px solid var(--bo);border-radius:5px;padding:1px 7px;color:var(--mu);font-family:'Space Mono',monospace;font-size:9px;}
+.tg2{font-size:9px;color:var(--a4);font-family:'Space Mono',monospace;margin-left:2px;}
+.qtog{font-size:16px;color:var(--mu);transition:transform .28s;padding-top:1px;min-width:18px;text-align:center;}
+.qc.op .qtog{transform:rotate(180deg);color:var(--a1);}
+.qa{display:none;border-top:1px solid var(--bo);padding:16px 18px 18px 56px;animation:sd .22s ease;}
+.qc.op .qa{display:block;}
+@keyframes sd{from{opacity:0;transform:translateY(-6px);}to{opacity:1;transform:none;}}
+.qa p{font-size:13px;line-height:1.75;color:#c4c4d4;margin-bottom:8px;}
+.qa ul,.qa ol{padding-left:16px;margin:7px 0;}
+.qa li{font-size:13px;line-height:1.7;color:#c4c4d4;margin-bottom:4px;}
+.qa .cb{font-size:11px;}
+.qa strong{color:var(--tx);}
+.qa .tip,.qa .wrn{font-size:12.5px;}
+.ab{display:flex;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid var(--bo);background:var(--su);}
+.ab span{font-size:11px;color:var(--mu);font-family:'Space Mono',monospace;}
+.mb{padding:4px 12px;border-radius:6px;border:1px solid var(--bo);background:transparent;color:var(--mu);font-size:10px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;transition:all .2s;}
+.mb:hover{border-color:var(--a4);color:var(--a4);}
+.mb.mk{background:rgba(52,211,153,.1);border-color:var(--a4);color:var(--a4);}
+.nr{text-align:center;padding:50px 20px;color:var(--mu);font-family:'Space Mono',monospace;font-size:12px;}
+.nr .bi{font-size:36px;margin-bottom:10px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  :root{--sw:262px;}
+  #sb{transform:translateX(-100%);}
+  #sb.op{transform:none;}
+  #mn{margin-left:0;}
+  .hb{display:flex;}
+  .lc{padding:18px 16px;}
+  .nf{padding:12px 16px 24px;}
+  .tb{padding:10px 16px 10px 52px;}
+  .pb{padding:10px 16px 10px 52px;}
+  .fs{padding:8px 12px;}
+  .pc{padding:14px 12px;}
+  h1{font-size:22px;}
+  .sc{padding:16px;}
+  .cb{font-size:10.5px;padding:12px 14px;}
+  .sr{gap:8px;}
+  .scard{min-width:75px;padding:8px 12px;}
+  .scard .sn{font-size:17px;}
+  .qh{padding:13px 14px 10px;}
+  .qa{padding:13px 14px 15px 14px;}
+  table{font-size:11px;}
+  th,td{padding:7px 9px;}
 }
-
-.topic{
-display:flex;
-align-items:center;
-gap:10px;
-padding:8px;
-background:#0d0d1a;
-margin-bottom:6px;
-border-radius:6px;
+@media(max-width:480px){
+  .tb,.pb{gap:6px;}
+  .tt,.pbt{font-size:14px;}
+  .tc{font-size:10px;padding:2px 8px;}
+  h1{font-size:19px;}
+  .ft{font-size:10px;padding:3px 9px;}
 }
-
-.topic.completed{
-opacity:.5;
-text-decoration:line-through;
-}
-
-.progress{
-background:#111;
-height:10px;
-border-radius:10px;
-overflow:hidden;
-margin-bottom:25px;
-}
-
-.progress-bar{
-height:10px;
-background:#FF6B35;
-width:0%;
-}
-
 </style>
 </head>
-
 <body>
+<div id="ov" onclick="closeSB()"></div>
+<button class="hb" onclick="openSB()" title="Menu">☰</button>
 
-<header>
-<h1>Data Analyst Roadmap</h1>
-<p>Track your progress</p>
-</header>
+<nav id="sb">
+  <div class="sh">
+    <div class="logo">Data<b>Analyst</b> Roadmap</div>
+    <div class="sub">// internship edition</div>
+    <div class="pob"><div class="poi" id="pi" style="width:0%"></div></div>
+    <div class="pol" id="pl">0 / 10 topics done</div>
+  </div>
+  <div class="ng">
+    <div class="nl">Foundation</div>
+    <div class="ni on" data-t="0"><span class="ic">📊</span>Excel & Spreadsheets<span class="ck">✓</span></div>
+    <div class="ni" data-t="1"><span class="ic">📐</span>Statistics & Math<span class="ck">✓</span></div>
+    <div class="ni" data-t="2"><span class="ic">🗄️</span>SQL Databases<span class="ck">✓</span></div>
+  </div>
+  <div class="ng">
+    <div class="nl">Programming</div>
+    <div class="ni" data-t="3"><span class="ic">🐍</span>Python Basics<span class="ck">✓</span></div>
+    <div class="ni" data-t="4"><span class="ic">🧹</span>Data Cleaning<span class="ck">✓</span></div>
+    <div class="ni" data-t="5"><span class="ic">🔍</span>EDA (Pandas+NumPy)<span class="ck">✓</span></div>
+  </div>
+  <div class="ng">
+    <div class="nl">Visualization</div>
+    <div class="ni" data-t="6"><span class="ic">📈</span>Python Visualization<span class="ck">✓</span></div>
+    <div class="ni" data-t="7"><span class="ic">🖥️</span>Power BI & Tableau<span class="ck">✓</span></div>
+  </div>
+  <div class="ng">
+    <div class="nl">Career</div>
+    <div class="ni" data-t="8"><span class="ic">🔧</span>Git & GitHub<span class="ck">✓</span></div>
+    <div class="ni" data-t="9"><span class="ic">🚀</span>Portfolio & Prep<span class="ck">✓</span></div>
+  </div>
+  <div class="ng pzn">
+    <div class="nl" style="color:var(--a1)">🔥 Practice Zone</div>
+    <div class="pzni" id="pzni" onclick="oPrac()">
+      <span class="ic">🎯</span>Interview Questions<span class="badge" id="qbadge">150+</span>
+    </div>
+  </div>
+</nav>
 
-<div class="container">
-
-<h3>Progress</h3>
-<div class="progress">
-<div class="progress-bar" id="progress"></div>
+<div id="mn">
+  <div class="tb">
+    <div class="tc" id="ttag">TOPIC 01</div>
+    <div class="tt" id="ttitle">Excel & Spreadsheets</div>
+    <button class="btn s" onclick="pT()">←</button>
+    <button class="btn" onclick="mD()">✓ Done</button>
+    <button class="btn s" onclick="nT()">Next →</button>
+  </div>
+  <div class="lc" id="ca"></div>
+  <div class="nf">
+    <button class="btn s" onclick="pT()">← Previous</button>
+    <button class="btn" onclick="nT()">Next Topic →</button>
+  </div>
 </div>
 
-<div id="roadmap"></div>
-
+<div id="pv">
+  <div class="pb">
+    <div class="tc" style="background:rgba(0,229,255,.12);color:var(--a1)">PRACTICE</div>
+    <div class="pbt">🎯 Interview Questions</div>
+    <button class="btn s" onclick="cPrac()" style="margin-left:auto">← Roadmap</button>
+    <div class="sp" id="sd">✓ 0 solved</div>
+  </div>
+  <div class="fs">
+    <span class="fl">CAT:</span>
+    <div class="ft af" data-c="All" onclick="fC('All')">All</div>
+    <div class="ft" data-c="Basics" onclick="fC('Basics')">Basics</div>
+    <div class="ft" data-c="SQL" onclick="fC('SQL')">SQL</div>
+    <div class="ft" data-c="Python" onclick="fC('Python')">Python</div>
+    <div class="ft" data-c="Excel" onclick="fC('Excel')">Excel</div>
+    <div class="ft" data-c="Statistics" onclick="fC('Statistics')">Stats</div>
+    <div class="ft" data-c="Case Study" onclick="fC('Case Study')">Case Study</div>
+    <div class="ft" data-c="Behavioral" onclick="fC('Behavioral')">Behavioral</div>
+    <div class="dv"></div>
+    <span class="fl">DIFF:</span>
+    <div class="ft af" data-d="All" onclick="fD('All')">All</div>
+    <div class="ft" data-d="Easy" onclick="fD('Easy')">Easy</div>
+    <div class="ft" data-d="Medium" onclick="fD('Medium')">Medium</div>
+    <div class="ft" data-d="Hard" onclick="fD('Hard')">Hard</div>
+  </div>
+  <div class="pc">
+    <div class="sr" id="sr"></div>
+    <div id="ql"></div>
+  </div>
 </div>
 
 <script>
+// ──────────────────────────────────────────────
+// TOPICS CONTENT
+// ──────────────────────────────────────────────
+const T=[
+{tag:"TOPIC 01",title:"Excel & Spreadsheets",html:`
+<h1>📊 Excel & Spreadsheets</h1>
+<p class="tg">// The analyst's first weapon — master before anything else</p>
+<div class="bc">Foundation → <span>Excel & Spreadsheets</span></div>
+<div class="sc"><h2>🎯 Why Excel?</h2><p>Even in 2025, Excel/Google Sheets is the #1 tool used by analysts in most Indian companies. Your manager will share a .xlsx file before a Python notebook.</p><div class="tip">💡 <strong>Reality:</strong> 80% of internship tasks involve cleaning, summarizing and presenting data in Excel.</div></div>
+<div class="sc"><h2>🔑 Must-Know Formulas</h2>
+<div class="tw"><table><tr><th>Formula</th><th>What It Does</th><th>Example</th></tr>
+<tr><td>SUM</td><td>Adds range</td><td>=SUM(A1:A10)</td></tr>
+<tr><td>AVERAGE</td><td>Mean</td><td>=AVERAGE(B2:B20)</td></tr>
+<tr><td>COUNT/COUNTA</td><td>Count numbers/non-empty</td><td>=COUNTA(C:C)</td></tr>
+<tr><td>IF</td><td>Conditional logic</td><td>=IF(A2>100,"High","Low")</td></tr>
+<tr><td>VLOOKUP</td><td>Lookup value in table</td><td>=VLOOKUP(A2,D:F,2,0)</td></tr>
+<tr><td>INDEX-MATCH</td><td>Flexible lookup</td><td>=INDEX(D:D,MATCH(A2,C:C,0))</td></tr>
+<tr><td>COUNTIF/SUMIF</td><td>Conditional count/sum</td><td>=COUNTIF(B:B,"Sales")</td></tr>
+<tr><td>IFERROR</td><td>Handle errors</td><td>=IFERROR(VLOOKUP(...),"N/A")</td></tr>
+<tr><td>TRIM/CLEAN</td><td>Remove extra spaces</td><td>=TRIM(A2)</td></tr>
+<tr><td>TEXT</td><td>Format as text</td><td>=TEXT(A2,"MMM YYYY")</td></tr>
+</table></div></div>
+<div class="sc"><h2>📌 Pivot Tables</h2><p>Summarize huge datasets in seconds:</p><ol>
+<li>Select data table → <strong>Insert → PivotTable</strong></li>
+<li>Drag fields to Rows, Columns, Values, Filters</li>
+<li>Choose aggregation: Sum, Count, Average</li>
+</ol><div class="tip">💡 Practice: Download Kaggle Superstore dataset, create pivot showing total sales by region and month.</div></div>
+<div class="sc"><h2>📊 Charts & Conditional Formatting</h2><ul>
+<li><strong>Bar Charts</strong> — compare categories</li>
+<li><strong>Line Charts</strong> — trends over time</li>
+<li><strong>Scatter Plots</strong> — correlation between two variables</li>
+<li><strong>Conditional Formatting</strong> — heat maps, data bars, color scales</li>
+</ul></div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">Which function looks up a value and returns another column's data from the same row?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — SUMIF</div>
+<div class="qopt" onclick="ans(this,true)">B — VLOOKUP / INDEX-MATCH</div>
+<div class="qopt" onclick="ans(this,false)">C — COUNTIF</div>
+<div class="qopt" onclick="ans(this,false)">D — PIVOT TABLE</div>
+</div>
+<div class="qr" id="qr">✓ Correct! INDEX-MATCH is preferred — more flexible, doesn't break when columns are inserted.</div></div>
+<div class="sc"><h2>✅ Internship Checklist</h2><div class="pr">
+<div class="pi a4">SUM/AVG/COUNT</div><div class="pi a4">IF & IFERROR</div>
+<div class="pi a4">VLOOKUP/INDEX-MATCH</div><div class="pi a4">Pivot Tables</div>
+<div class="pi a4">Bar/Line Charts</div><div class="pi a4">Conditional Formatting</div>
+<div class="pi a1">SUMIF/COUNTIF</div><div class="pi a1">AutoFilter</div>
+</div></div>`},
 
-const roadmap = [
-{
-title:"SQL — Your #1 Weapon",
-topics:[
-"SELECT, WHERE, ORDER BY",
-"GROUP BY + Aggregate Functions",
-"JOINs",
-"Subqueries & CTEs",
-"Window Functions",
-"CASE WHEN"
-]
-},
-{
-title:"Excel / Google Sheets",
-topics:[
-"VLOOKUP / XLOOKUP",
-"PivotTables",
-"IF, SUMIF, COUNTIF",
-"Charts",
-"Data Cleaning",
-"Conditional Formatting"
-]
-},
-{
-title:"Python for Data Analysis",
-topics:[
-"Python Basics",
-"Pandas",
-"NumPy",
-"Matplotlib / Seaborn",
-"Data Cleaning",
-"Exploratory Data Analysis"
-]
-},
-{
-title:"Data Visualization",
-topics:[
-"Connecting Data",
-"Charts",
-"Filters",
-"Calculated Fields",
-"Dashboard Design",
-"Publishing Dashboards"
-]
-},
-{
-title:"Statistics",
-topics:[
-"Mean Median Mode",
-"Correlation vs Causation",
-"Normal Distribution",
-"Hypothesis Testing",
-"Percentiles"
-]
-},
-{
-title:"Portfolio",
-topics:[
-"GitHub Profile",
-"2–3 Projects",
-"Tableau Dashboard",
-"Resume",
-"LinkedIn",
-"Project Ideas"
-]
-}
+{tag:"TOPIC 02",title:"Statistics & Math",html:`
+<h1>📐 Statistics & Math</h1>
+<p class="tg">// Numbers tell stories — statistics teaches you to read them</p>
+<div class="bc">Foundation → <span>Statistics & Math</span></div>
+<div class="sc"><h2>📊 Descriptive Statistics</h2>
+<div class="tw"><table><tr><th>Measure</th><th>What It Is</th><th>When To Use</th></tr>
+<tr><td><strong>Mean (μ)</strong></td><td>Sum ÷ Count</td><td>Normally distributed data</td></tr>
+<tr><td><strong>Median</strong></td><td>Middle value</td><td>Skewed data, salaries</td></tr>
+<tr><td><strong>Mode</strong></td><td>Most frequent</td><td>Categorical data</td></tr>
+<tr><td><strong>Std Dev (σ)</strong></td><td>Spread around mean</td><td>Measure variability</td></tr>
+<tr><td><strong>IQR</strong></td><td>Q3 − Q1</td><td>Detect outliers</td></tr>
+</table></div></div>
+<div class="sc"><h2>📈 Distributions</h2><ul>
+<li><strong>Normal</strong> — Bell curve. 68-95-99.7 rule.</li>
+<li><strong>Skewed Right</strong> — Long tail right (income data)</li>
+<li><strong>Binomial</strong> — Success/failure trials (coin flips)</li>
+<li><strong>Poisson</strong> — Count events in time (arrivals/hour)</li>
+</ul><div class="tip">💡 <strong>68-95-99.7 Rule:</strong> 68% within 1σ, 95% within 2σ, 99.7% within 3σ of mean.</div></div>
+<div class="sc"><h2>🧪 Hypothesis Testing</h2><ol>
+<li>State H₀ (Null): "No difference between groups"</li>
+<li>State H₁ (Alternative): "Group A differs from B"</li>
+<li>Choose α = 0.05</li>
+<li>Calculate p-value</li>
+<li>If p &lt; α → Reject H₀ (statistically significant)</li>
+</ol><div class="wrn">⚠️ p &lt; 0.05 means "unlikely by chance" — NOT "definitely true". Always check practical significance too.</div></div>
+<div class="sc"><h2>📋 Key Statistical Tests</h2>
+<div class="tw"><table><tr><th>Test</th><th>Used When</th></tr>
+<tr><td>t-Test</td><td>Compare means of 2 groups</td></tr>
+<tr><td>ANOVA</td><td>Compare means of 3+ groups</td></tr>
+<tr><td>Chi-Square</td><td>Categorical variable relationships</td></tr>
+<tr><td>Linear Regression</td><td>Predict continuous variable</td></tr>
+</table></div></div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">Salary data has a few extremely high earners. Which central tendency measure best represents typical salary?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — Mean</div>
+<div class="qopt" onclick="ans(this,true)">B — Median</div>
+<div class="qopt" onclick="ans(this,false)">C — Mode</div>
+<div class="qopt" onclick="ans(this,false)">D — Variance</div>
+</div>
+<div class="qr" id="qr">✓ Correct! Median is resistant to outliers. The mean gets pulled toward high values.</div></div>`},
+
+{tag:"TOPIC 03",title:"SQL Databases",html:`
+<h1>🗄️ SQL Databases</h1>
+<p class="tg">// The language every data analyst must speak fluently</p>
+<div class="bc">Foundation → <span>SQL Databases</span></div>
+<div class="sc"><h2>🔤 Basic SELECT Queries</h2>
+<div class="cb"><span class="cm">-- Select all columns</span>
+<span class="kw">SELECT</span> * <span class="kw">FROM</span> customers;
+
+<span class="cm">-- Filter with WHERE</span>
+<span class="kw">SELECT</span> name, email <span class="kw">FROM</span> customers
+<span class="kw">WHERE</span> city = <span class="st">'Mumbai'</span> <span class="kw">AND</span> age > <span class="nm">25</span>;
+
+<span class="cm">-- Sort results</span>
+<span class="kw">SELECT</span> name, salary <span class="kw">FROM</span> employees
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span> <span class="kw">LIMIT</span> <span class="nm">10</span>;</div></div>
+<div class="sc"><h2>🧮 Aggregations & GROUP BY</h2>
+<div class="cb"><span class="cm">-- Sales per city</span>
+<span class="kw">SELECT</span> city, <span class="fn">SUM</span>(amount) <span class="kw">AS</span> total_sales, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> orders
+<span class="kw">FROM</span> orders
+<span class="kw">GROUP BY</span> city
+<span class="kw">HAVING</span> <span class="fn">SUM</span>(amount) > <span class="nm">10000</span>
+<span class="kw">ORDER BY</span> total_sales <span class="kw">DESC</span>;</div></div>
+<div class="sc"><h2>🔗 JOINs</h2>
+<div class="cb"><span class="cm">-- INNER JOIN: only matching rows</span>
+<span class="kw">SELECT</span> o.order_id, c.name, o.amount
+<span class="kw">FROM</span> orders o
+<span class="kw">INNER JOIN</span> customers c <span class="kw">ON</span> o.customer_id = c.id;
+
+<span class="cm">-- LEFT JOIN: all customers, even without orders</span>
+<span class="kw">SELECT</span> c.name, o.order_id
+<span class="kw">FROM</span> customers c
+<span class="kw">LEFT JOIN</span> orders o <span class="kw">ON</span> c.id = o.customer_id;</div></div>
+<div class="sc"><h2>🪟 Window Functions</h2>
+<div class="cb"><span class="cm">-- Rank by total purchase</span>
+<span class="kw">SELECT</span> name, total_spent,
+       <span class="fn">RANK</span>() <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> total_spent <span class="kw">DESC</span>) <span class="kw">AS</span> rnk
+<span class="kw">FROM</span> customers;
+
+<span class="cm">-- Running total</span>
+<span class="kw">SELECT</span> date, amount,
+       <span class="fn">SUM</span>(amount) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> date) <span class="kw">AS</span> running_total
+<span class="kw">FROM</span> orders;</div></div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">What's the difference between WHERE and HAVING?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — WHERE works on columns, HAVING works on rows</div>
+<div class="qopt" onclick="ans(this,true)">B — WHERE filters before grouping; HAVING filters after GROUP BY</div>
+<div class="qopt" onclick="ans(this,false)">C — They are identical</div>
+<div class="qopt" onclick="ans(this,false)">D — HAVING is faster</div>
+</div>
+<div class="qr" id="qr">✓ Correct! WHERE filters individual rows before aggregation. HAVING filters groups after GROUP BY.</div></div>`},
+
+{tag:"TOPIC 04",title:"Python Basics",html:`
+<h1>🐍 Python Basics for Data Analysis</h1>
+<p class="tg">// Learn just enough Python to analyze data effectively</p>
+<div class="bc">Programming → <span>Python Basics</span></div>
+<div class="sc"><h2>📦 Core Python</h2>
+<div class="cb"><span class="cm"># Variables & types</span>
+name = <span class="st">"Alice"</span>; age = <span class="nm">25</span>; salary = <span class="nm">45000.5</span>; active = <span class="kw">True</span>
+
+<span class="cm"># Lists and loops</span>
+scores = [<span class="nm">85</span>, <span class="nm">92</span>, <span class="nm">78</span>, <span class="nm">95</span>]
+high = [s <span class="kw">for</span> s <span class="kw">in</span> scores <span class="kw">if</span> s >= <span class="nm">90</span>]  <span class="cm"># list comprehension</span>
+
+<span class="cm"># Dictionaries</span>
+emp = {<span class="st">"name"</span>:<span class="st">"Bob"</span>, <span class="st">"dept"</span>:<span class="st">"Sales"</span>, <span class="st">"salary"</span>:<span class="nm">60000</span>}
+
+<span class="cm"># Functions</span>
+<span class="kw">def</span> <span class="fn">grade</span>(score):
+    <span class="kw">return</span> <span class="st">"A"</span> <span class="kw">if</span> score >= <span class="nm">90</span> <span class="kw">else</span> <span class="st">"B"</span> <span class="kw">if</span> score >= <span class="nm">80</span> <span class="kw">else</span> <span class="st">"C"</span></div></div>
+<div class="sc"><h2>🐼 Pandas Essentials</h2>
+<div class="cb"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+df = pd.<span class="fn">read_csv</span>(<span class="st">"sales.csv"</span>)
+df.<span class="fn">head</span>()            <span class="cm"># First 5 rows</span>
+df.<span class="fn">info</span>()            <span class="cm"># Types & nulls</span>
+df.<span class="fn">describe</span>()        <span class="cm"># Stats summary</span>
+df.shape             <span class="cm"># (rows, cols)</span>
+
+<span class="cm"># Filter</span>
+df[df[<span class="st">"salary"</span>] > <span class="nm">50000</span>]
+df[df[<span class="st">"dept"</span>] == <span class="st">"Sales"</span>]
+
+<span class="cm"># Group by</span>
+df.<span class="fn">groupby</span>(<span class="st">"dept"</span>)[<span class="st">"salary"</span>].<span class="fn">mean</span>()
+
+<span class="cm"># New column</span>
+df[<span class="st">"bonus"</span>] = df[<span class="st">"salary"</span>] * <span class="nm">0.1</span></div></div>
+<div class="sc"><h2>🔢 NumPy</h2>
+<div class="cb"><span class="kw">import</span> numpy <span class="kw">as</span> np
+arr = np.<span class="fn">array</span>([<span class="nm">10</span>,<span class="nm">20</span>,<span class="nm">30</span>,<span class="nm">40</span>,<span class="nm">50</span>])
+np.<span class="fn">mean</span>(arr)   <span class="cm"># 30.0</span>
+np.<span class="fn">std</span>(arr)    <span class="cm"># 14.14</span>
+np.<span class="fn">median</span>(arr) <span class="cm"># 30.0</span>
+np.<span class="fn">percentile</span>(arr, <span class="nm">75</span>)  <span class="cm"># Q3 = 40.0</span></div></div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">Which pandas method shows column types AND null counts at once?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — df.describe()</div>
+<div class="qopt" onclick="ans(this,false)">B — df.head()</div>
+<div class="qopt" onclick="ans(this,true)">C — df.info()</div>
+<div class="qopt" onclick="ans(this,false)">D — df.shape</div>
+</div>
+<div class="qr" id="qr">✓ Correct! df.info() shows column names, non-null counts, and dtypes together.</div></div>`},
+
+{tag:"TOPIC 05",title:"Data Cleaning",html:`
+<h1>🧹 Data Cleaning</h1>
+<p class="tg">// "Data scientists spend 80% of time cleaning data" — highest-value skill</p>
+<div class="bc">Programming → <span>Data Cleaning</span></div>
+<div class="sc"><h2>🔍 Common Problems</h2>
+<div class="tw"><table><tr><th>Problem</th><th>Example</th><th>Fix</th></tr>
+<tr><td>Missing values</td><td>NaN, NULL</td><td>fillna() / dropna()</td></tr>
+<tr><td>Duplicates</td><td>Same row twice</td><td>drop_duplicates()</td></tr>
+<tr><td>Wrong type</td><td>"25" as string</td><td>astype()</td></tr>
+<tr><td>Inconsistent text</td><td>"sales","SALES"</td><td>str.lower().strip()</td></tr>
+<tr><td>Outliers</td><td>Age = 999</td><td>IQR method</td></tr>
+</table></div></div>
+<div class="sc"><h2>🐼 Cleaning in Pandas</h2>
+<div class="cb"><span class="cm"># Check missing</span>
+df.<span class="fn">isnull</span>().<span class="fn">sum</span>()
+
+<span class="cm"># Handle missing</span>
+df.<span class="fn">dropna</span>(subset=[<span class="st">"salary"</span>])
+df[<span class="st">"age"</span>].<span class="fn">fillna</span>(df[<span class="st">"age"</span>].<span class="fn">median</span>(), inplace=<span class="kw">True</span>)
+df[<span class="st">"city"</span>].<span class="fn">fillna</span>(<span class="st">"Unknown"</span>, inplace=<span class="kw">True</span>)
+
+<span class="cm"># Remove duplicates</span>
+df.<span class="fn">drop_duplicates</span>(subset=[<span class="st">"email"</span>], keep=<span class="st">"first"</span>, inplace=<span class="kw">True</span>)
+
+<span class="cm"># Fix types</span>
+df[<span class="st">"date"</span>] = pd.<span class="fn">to_datetime</span>(df[<span class="st">"date"</span>])
+df[<span class="st">"salary"</span>] = df[<span class="st">"salary"</span>].<span class="fn">astype</span>(<span class="fn">float</span>)
+
+<span class="cm"># Clean text</span>
+df[<span class="st">"dept"</span>] = df[<span class="st">"dept"</span>].str.<span class="fn">strip</span>().str.<span class="fn">lower</span>()
+
+<span class="cm"># Remove outliers (IQR)</span>
+Q1=df[<span class="st">"salary"</span>].<span class="fn">quantile</span>(<span class="nm">0.25</span>); Q3=df[<span class="st">"salary"</span>].<span class="fn">quantile</span>(<span class="nm">0.75</span>)
+IQR=Q3-Q1
+df=df[(df[<span class="st">"salary"</span>]>=Q1-<span class="nm">1.5</span>*IQR)&(df[<span class="st">"salary"</span>]<=Q3+<span class="nm">1.5</span>*IQR)]</div></div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">For numerical column with missing values in skewed data, which fill is best?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — Fill with Mean</div>
+<div class="qopt" onclick="ans(this,true)">B — Fill with Median</div>
+<div class="qopt" onclick="ans(this,false)">C — Drop the rows</div>
+<div class="qopt" onclick="ans(this,false)">D — Fill with 0</div>
+</div>
+<div class="qr" id="qr">✓ Correct! Median is robust to outliers. Mean gets pulled by extremes.</div></div>`},
+
+{tag:"TOPIC 06",title:"EDA (Pandas + NumPy)",html:`
+<h1>🔍 Exploratory Data Analysis</h1>
+<p class="tg">// The detective work of data — find patterns before you present</p>
+<div class="bc">Programming → <span>EDA</span></div>
+<div class="sc"><h2>📋 EDA Workflow</h2><ol>
+<li><strong>Understand</strong> — shape, columns, dtypes</li>
+<li><strong>Check issues</strong> — nulls, duplicates, outliers</li>
+<li><strong>Univariate</strong> — distribution of each column</li>
+<li><strong>Bivariate</strong> — relationships between 2 variables</li>
+<li><strong>Multivariate</strong> — patterns across many variables</li>
+<li><strong>Document</strong> — write down every finding</li>
+</ol></div>
+<div class="sc"><h2>🐼 EDA Code Template</h2>
+<div class="cb"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># Step 1: Understand</span>
+print(df.shape, df.columns.<span class="fn">tolist</span>())
+df.<span class="fn">head</span>(<span class="nm">3</span>); df.<span class="fn">dtypes</span>
+
+<span class="cm"># Step 2: Issues</span>
+df.<span class="fn">isnull</span>().<span class="fn">sum</span>()
+df.<span class="fn">duplicated</span>().<span class="fn">sum</span>()
+df.<span class="fn">describe</span>()  <span class="cm"># check min/max for outliers</span>
+
+<span class="cm"># Step 3: Univariate</span>
+df[<span class="st">"sales"</span>].<span class="fn">value_counts</span>()
+df[<span class="st">"region"</span>].<span class="fn">value_counts</span>(normalize=<span class="kw">True</span>)
+
+<span class="cm"># Step 4: Bivariate</span>
+df[[<span class="st">"sales"</span>,<span class="st">"profit"</span>,<span class="st">"discount"</span>]].<span class="fn">corr</span>()
+df.<span class="fn">groupby</span>(<span class="st">"region"</span>)[<span class="st">"sales"</span>].<span class="fn">agg</span>([<span class="st">"mean"</span>,<span class="st">"median"</span>,<span class="st">"count"</span>])</div></div>
+<div class="tip">💡 <strong>Internship tip:</strong> Keep a running doc of every EDA finding. Share as "initial observations" — shows initiative.</div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">Which pandas method shows correlation between all numeric columns?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — df.describe()</div>
+<div class="qopt" onclick="ans(this,true)">B — df.corr()</div>
+<div class="qopt" onclick="ans(this,false)">C — df.info()</div>
+<div class="qopt" onclick="ans(this,false)">D — df.groupby()</div>
+</div>
+<div class="qr" id="qr">✓ Correct! df.corr() returns a Pearson correlation matrix for all numeric columns (-1 to +1).</div></div>`},
+
+{tag:"TOPIC 07",title:"Python Visualization",html:`
+<h1>📈 Data Visualization with Python</h1>
+<p class="tg">// A chart worth a thousand spreadsheet rows</p>
+<div class="bc">Visualization → <span>Python Viz</span></div>
+<div class="sc"><h2>🎯 The Three Libraries</h2>
+<div class="tw"><table><tr><th>Library</th><th>Best For</th><th>Complexity</th></tr>
+<tr><td><strong>Matplotlib</strong></td><td>Full control, publication charts</td><td>Medium</td></tr>
+<tr><td><strong>Seaborn</strong></td><td>Statistical charts, beautiful defaults</td><td>Easy</td></tr>
+<tr><td><strong>Plotly</strong></td><td>Interactive web dashboards</td><td>Medium</td></tr>
+</table></div></div>
+<div class="sc"><h2>📊 Matplotlib + Seaborn</h2>
+<div class="cb"><span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> seaborn <span class="kw">as</span> sns
+
+<span class="cm"># Line chart</span>
+plt.<span class="fn">plot</span>(df[<span class="st">"date"</span>], df[<span class="st">"sales"</span>], color=<span class="st">"steelblue"</span>, linewidth=<span class="nm">2</span>)
+plt.<span class="fn">title</span>(<span class="st">"Monthly Sales"</span>); plt.<span class="fn">show</span>()
+
+<span class="cm"># Heatmap (correlation)</span>
+sns.<span class="fn">heatmap</span>(df.<span class="fn">corr</span>(), annot=<span class="kw">True</span>, cmap=<span class="st">"coolwarm"</span>, fmt=<span class="st">".2f"</span>)
+
+<span class="cm"># Box plot (shows outliers)</span>
+sns.<span class="fn">boxplot</span>(x=<span class="st">"dept"</span>, y=<span class="st">"salary"</span>, data=df)
+
+<span class="cm"># Distribution with KDE</span>
+sns.<span class="fn">histplot</span>(df[<span class="st">"salary"</span>], kde=<span class="kw">True</span>)</div></div>
+<div class="sc"><h2>📋 Which Chart for What?</h2>
+<div class="tw"><table><tr><th>Question</th><th>Best Chart</th></tr>
+<tr><td>Distribution of one variable</td><td>Histogram, Box Plot</td></tr>
+<tr><td>Comparison across categories</td><td>Bar Chart, Box Plot</td></tr>
+<tr><td>Trend over time</td><td>Line Chart</td></tr>
+<tr><td>Relationship between 2 numerics</td><td>Scatter Plot</td></tr>
+<tr><td>Correlation matrix</td><td>Heatmap</td></tr>
+</table></div></div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">Show sales distribution across regions AND highlight outliers. Best chart?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — Pie Chart</div>
+<div class="qopt" onclick="ans(this,false)">B — Line Chart</div>
+<div class="qopt" onclick="ans(this,true)">C — Box Plot</div>
+<div class="qopt" onclick="ans(this,false)">D — Heatmap</div>
+</div>
+<div class="qr" id="qr">✓ Correct! Box plots show median, IQR, and outliers (dots) for each group — perfect for comparing distributions.</div></div>`},
+
+{tag:"TOPIC 08",title:"Power BI & Tableau",html:`
+<h1>🖥️ Power BI & Tableau</h1>
+<p class="tg">// Drag-and-drop dashboards that impress any manager</p>
+<div class="bc">Visualization → <span>Power BI & Tableau</span></div>
+<div class="sc"><h2>🟡 Power BI Concepts</h2><ul>
+<li><strong>Power Query</strong>: ETL layer — import, clean data (GUI version of Pandas)</li>
+<li><strong>Data Model</strong>: Create table relationships (like SQL joins). Star schema.</li>
+<li><strong>DAX</strong>: Formulas for calculated columns and measures</li>
+<li><strong>Visuals</strong>: Drag fields to bar charts, KPI cards, maps, slicers</li>
+</ul></div>
+<div class="sc"><h2>🔢 Essential DAX</h2>
+<div class="cb"><span class="cm">// Total Sales</span>
+Total Sales = <span class="fn">SUM</span>(Orders[Amount])
+
+<span class="cm">// Growth %</span>
+Growth % = <span class="fn">DIVIDE</span>([Total Sales]-[LY Sales],[LY Sales],<span class="nm">0</span>)*<span class="nm">100</span>
+
+<span class="cm">// Last Year (time intelligence)</span>
+LY Sales = <span class="fn">CALCULATE</span>([Total Sales],<span class="fn">SAMEPERIODLASTYEAR</span>(Dates[Date]))
+
+<span class="cm">// Unique customers</span>
+Customers = <span class="fn">DISTINCTCOUNT</span>(Orders[CustomerID])</div></div>
+<div class="sc"><h2>✅ Dashboard Best Practices</h2><ul>
+<li>Start with <strong>KPI cards</strong> at the top</li>
+<li>Use <strong>consistent colors</strong> — one color per category</li>
+<li>Add <strong>slicers</strong> for date, region, product</li>
+<li>Max <strong>5–7 visuals</strong> per page — less is more</li>
+<li>Write <strong>clear chart titles</strong>: "Revenue by Region" not "Chart 1"</li>
+</ul></div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">In DAX, what does CALCULATE() do?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — Adds two numbers</div>
+<div class="qopt" onclick="ans(this,true)">B — Evaluates an expression in a modified filter context</div>
+<div class="qopt" onclick="ans(this,false)">C — Creates a new table</div>
+<div class="qopt" onclick="ans(this,false)">D — Connects to a database</div>
+</div>
+<div class="qr" id="qr">✓ Correct! CALCULATE is the most powerful DAX function — it lets you override the current filter context.</div></div>`},
+
+{tag:"TOPIC 09",title:"Git & GitHub",html:`
+<h1>🔧 Git & GitHub</h1>
+<p class="tg">// Version control — your safety net and portfolio showcase</p>
+<div class="bc">Career → <span>Git & GitHub</span></div>
+<div class="sc"><h2>⚡ Essential Commands</h2>
+<div class="cb"><span class="cm"># Setup (one time)</span>
+git config --global user.name <span class="st">"Your Name"</span>
+git config --global user.email <span class="st">"you@email.com"</span>
+
+<span class="cm"># Daily workflow</span>
+git status                    <span class="cm"># See what changed</span>
+git add .                     <span class="cm"># Stage all changes</span>
+git commit -m <span class="st">"Add EDA notebook"</span>
+git push origin main          <span class="cm"># Upload to GitHub</span>
+git pull                      <span class="cm"># Get latest from GitHub</span>
+
+<span class="cm"># Branching</span>
+git checkout -b feature/dashboard
+git merge feature/dashboard
+
+<span class="cm"># Undo</span>
+git restore &lt;file&gt;
+git log --oneline</div></div>
+<div class="sc"><h2>📌 GitHub Profile Tips</h2><ul>
+<li>Pin 3–5 best projects with clear README.md</li>
+<li>README: problem → data source → approach → findings</li>
+<li>Commit regularly — green contribution graph matters</li>
+<li>Include requirements.txt for reproducibility</li>
+</ul></div>
+<div class="qb"><h3>// QUICK QUIZ</h3>
+<div class="qq">Correct order to save and upload changes to GitHub?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — push → commit → add</div>
+<div class="qopt" onclick="ans(this,true)">B — add → commit → push</div>
+<div class="qopt" onclick="ans(this,false)">C — commit → add → push</div>
+<div class="qopt" onclick="ans(this,false)">D — clone → push → pull</div>
+</div>
+<div class="qr" id="qr">✓ Correct! git add (stage) → git commit (local snapshot) → git push (upload to GitHub).</div></div>`},
+
+{tag:"TOPIC 10",title:"Portfolio & Internship Prep",html:`
+<h1>🚀 Portfolio & Internship Prep</h1>
+<p class="tg">// All that knowledge means nothing if you can't show it</p>
+<div class="bc">Career → <span>Portfolio & Internship</span></div>
+<div class="sc"><h2>🗂️ Build 3 Projects</h2>
+<div class="tw"><table><tr><th>Project</th><th>Dataset</th><th>Skills Shown</th></tr>
+<tr><td>Sales Analysis</td><td>Kaggle Superstore</td><td>SQL + Pandas + Power BI</td></tr>
+<tr><td>EDA Project</td><td>Kaggle / data.gov.in</td><td>Python + Seaborn</td></tr>
+<tr><td>Time Series</td><td>Stock data (yfinance)</td><td>Matplotlib + Trends</td></tr>
+</table></div>
+<div class="tip">💡 Pick a domain you're excited about — sports, movies, healthcare. Enthusiasm is contagious in interviews.</div></div>
+<div class="sc"><h2>💬 Common Interview Questions</h2>
+<div class="tw"><table><tr><th>Question</th><th>Tests</th></tr>
+<tr><td>Explain a project end-to-end</td><td>Communication + process</td></tr>
+<tr><td>SQL: top 5 customers by revenue</td><td>GROUP BY, ORDER BY, LIMIT</td></tr>
+<tr><td>How to handle missing data?</td><td>Data cleaning knowledge</td></tr>
+<tr><td>What is p-value?</td><td>Statistics basics</td></tr>
+<tr><td>How to identify outliers?</td><td>IQR, z-score, boxplot</td></tr>
+</table></div></div>
+<div class="sc"><h2>🏁 30-Day Action Plan</h2><ol>
+<li><strong>Week 1</strong>: Excel + Statistics. One Kaggle dataset.</li>
+<li><strong>Week 2</strong>: SQL. 20 queries on HackerRank/LeetCode.</li>
+<li><strong>Week 3</strong>: Python EDA project on GitHub.</li>
+<li><strong>Week 4</strong>: Power BI dashboard. Polish resume. Apply.</li>
+</ol>
+<div class="tip">🎯 Goal: 3 GitHub projects + updated resume + 20 applications = internship offer within 45–60 days.</div></div>
+<div class="qb"><h3>// FINAL CHECK</h3>
+<div class="qq">What's the #1 thing that gets you the internship?</div>
+<div class="qo">
+<div class="qopt" onclick="ans(this,false)">A — Knowing every Python library</div>
+<div class="qopt" onclick="ans(this,false)">B — Perfect GPA</div>
+<div class="qopt" onclick="ans(this,true)">C — Real projects + communication + consistency</div>
+<div class="qopt" onclick="ans(this,false)">D — Watching 100 YouTube tutorials</div>
+</div>
+<div class="qr" id="qr">🎉 Exactly! Build real projects, practice explaining your work, apply consistently. You've got this! 🚀</div></div>`}
 ];
 
-const roadmapDiv=document.getElementById("roadmap");
+// ──────────────────────────────────────────────
+// PRACTICE QUESTIONS (150+)
+// ──────────────────────────────────────────────
+const PQ=[
+// ===== BASICS =====
+{id:1,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is data analysis? Explain in simple terms.",
+a:`<p>Data analysis is the process of inspecting, cleaning, transforming, and modeling data to discover useful information, reach conclusions, and support decision-making.</p>
+<p><strong>Simple analogy:</strong> Imagine you run a chai stall. You note down daily sales. At the end of the month, you look at which days had highest sales (weekends?), which chai sold most (masala?), and at what time (morning?). That's data analysis — turning raw records into useful insights.</p>
+<ul><li><strong>Descriptive</strong>: What happened? (Sales were ₹50K last month)</li>
+<li><strong>Diagnostic</strong>: Why did it happen? (Sales dropped because it rained)</li>
+<li><strong>Predictive</strong>: What will happen? (Next month sales forecast)</li>
+<li><strong>Prescriptive</strong>: What should we do? (Open early on rainy days to capture indoor crowd)</li></ul>`},
 
-let totalTopics=0;
+{id:2,cat:"Basics",diff:"Easy",co:["TCS","Wipro","Infosys"],
+q:"What is the difference between data, information, and insight?",
+a:`<ul>
+<li><strong>Data</strong>: Raw, unprocessed facts. Example: 45, 23, 67, 12 (just numbers)</li>
+<li><strong>Information</strong>: Data processed to give context. Example: "Daily sales in units: 45, 23, 67, 12"</li>
+<li><strong>Insight</strong>: Actionable understanding from information. Example: "Sales drop on Tuesdays — consider a Tuesday promotion."</li>
+</ul>
+<p>The analyst's job is to convert data → information → insight → action.</p>
+<div class="tip">💡 Interview tip: Always frame your analysis in terms of "insight" and "action" — not just "I found that sales were X". Say what it means and what to do about it.</div>`},
 
-roadmap.forEach((phase,pIndex)=>{
+{id:3,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What are the different types of data? (Structured, Semi-structured, Unstructured)",
+a:`<ul>
+<li><strong>Structured data</strong>: Organized in rows and columns. Stored in databases/spreadsheets. Easy to analyze. Example: SQL tables, Excel files, CSV files.</li>
+<li><strong>Semi-structured data</strong>: Has some structure but not in tabular form. Example: JSON files, XML files, emails with headers.</li>
+<li><strong>Unstructured data</strong>: No predefined format. Hardest to analyze. Example: Text documents, images, videos, social media posts, audio.</li>
+</ul>
+<p>As a data analyst, you'll mostly work with structured data (CSV, databases). ~80% of enterprise data is unstructured, but analysts mainly deal with the structured portion.</p>`},
 
-const div=document.createElement("div");
-div.className="phase";
+{id:4,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is the difference between quantitative and qualitative data?",
+a:`<ul>
+<li><strong>Quantitative (Numerical)</strong>: Can be measured numerically. Two types:
+  <ul>
+  <li><strong>Discrete</strong>: Countable whole numbers. Example: number of orders (1, 2, 3), employees.</li>
+  <li><strong>Continuous</strong>: Can take any value in a range. Example: salary (₹45,231.50), height, temperature.</li>
+  </ul>
+</li>
+<li><strong>Qualitative (Categorical)</strong>: Describes qualities. Two types:
+  <ul>
+  <li><strong>Nominal</strong>: No order. Example: city name, product category, gender.</li>
+  <li><strong>Ordinal</strong>: Has order/ranking. Example: customer rating (1-5), education level (High School &lt; Bachelor's &lt; Master's).</li>
+  </ul>
+</li>
+</ul>
+<div class="tip">💡 This matters because the type of data determines which statistical tests and charts to use!</div>`},
 
-let html=`<h2>${phase.title}</h2>`;
+{id:5,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is a dataset? What are rows and columns called in data analysis?",
+a:`<p>A <strong>dataset</strong> is a collection of data organized in a structured format, typically a table.</p>
+<ul>
+<li><strong>Rows</strong> = Observations / Records / Instances. Each row represents one entity (one customer, one sale, one day).</li>
+<li><strong>Columns</strong> = Features / Variables / Attributes / Fields. Each column represents one characteristic (name, age, salary).</li>
+<li><strong>Cell</strong> = A single value at the intersection of a row and column.</li>
+</ul>
+<div class="cb">Example: Customer table
+ID | Name  | Age | City   | Salary
+1  | Alice | 28  | Mumbai | 60000
+2  | Bob   | 35  | Delhi  | 75000
+→ 2 rows (observations), 5 columns (features)</div>`},
 
-phase.topics.forEach((topic,tIndex)=>{
+{id:6,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is a KPI (Key Performance Indicator)? Give 3 examples for an e-commerce company.",
+a:`<p>A KPI is a measurable value that shows how effectively a company/team is achieving its key business objectives. It's a "north star" metric.</p>
+<p><strong>E-commerce KPI examples:</strong></p>
+<ul>
+<li><strong>Conversion Rate</strong>: % of website visitors who make a purchase. Formula: (Purchases / Visits) × 100</li>
+<li><strong>Average Order Value (AOV)</strong>: Average amount spent per order. Formula: Total Revenue / Number of Orders</li>
+<li><strong>Customer Acquisition Cost (CAC)</strong>: Cost to acquire one new customer. Formula: Marketing Spend / New Customers</li>
+<li><strong>Monthly Active Users (MAU)</strong>: Unique users in a month</li>
+<li><strong>Churn Rate</strong>: % of customers who stop buying each month</li>
+</ul>
+<div class="tip">💡 As an analyst, you'll track KPIs in dashboards. Always ask: "What decision does this metric help make?"</div>`},
 
-const id=`${pIndex}-${tIndex}`;
-totalTopics++;
+{id:7,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is the difference between a database and a spreadsheet?",
+a:`<div class="tw"><table><tr><th>Aspect</th><th>Spreadsheet (Excel)</th><th>Database (SQL)</th></tr>
+<tr><td>Size</td><td>~1M rows limit</td><td>Billions of rows</td></tr>
+<tr><td>Multi-user</td><td>Difficult (conflicts)</td><td>Built for concurrent users</td></tr>
+<tr><td>Relationships</td><td>Manual (VLOOKUP)</td><td>Built-in (JOIN)</td></tr>
+<tr><td>Speed</td><td>Slow on large data</td><td>Optimized with indexes</td></tr>
+<tr><td>Automation</td><td>Manual refresh</td><td>Automatic real-time</td></tr>
+<tr><td>Best For</td><td>Ad-hoc analysis, reports</td><td>Production data storage</td></tr>
+</table></div>
+<div class="tip">💡 Real world: Companies store data in databases (MySQL, PostgreSQL). Analysts query the database with SQL and often export to Excel for final reporting.</div>`},
 
-html+=`
-<div class="topic" id="topic-${id}">
-<input type="checkbox" id="${id}" onchange="toggleTopic('${id}')">
-<label>${topic}</label>
-</div>
-`;
+{id:8,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What does ETL mean? Explain each step simply.",
+a:`<p><strong>ETL = Extract, Transform, Load</strong> — the pipeline that moves data from source to destination.</p>
+<ul>
+<li><strong>Extract</strong>: Pull raw data from sources — databases, APIs, CSV files, web scraping, CRMs. Like picking vegetables from different farms.</li>
+<li><strong>Transform</strong>: Clean, normalize, and reshape the data — handle nulls, fix formats, join tables, derive new columns. Like washing and cutting the vegetables.</li>
+<li><strong>Load</strong>: Store transformed data into a data warehouse or final database for analysis. Like putting cut veggies in the refrigerator.</li>
+</ul>
+<p><strong>Tools:</strong> Python (Pandas), Apache Spark, dbt, Talend, Power Query (in Power BI)</p>
+<div class="tip">💡 Modern alternative: ELT (Extract, Load, Transform) — load raw data first, transform inside the warehouse. Used by tools like dbt + BigQuery/Snowflake.</div>`},
 
+{id:9,cat:"Basics",diff:"Medium",co:["All Companies"],
+q:"What is a data warehouse? How is it different from a regular database?",
+a:`<ul>
+<li><strong>Operational Database (OLTP)</strong>: Designed for day-to-day transactions. Fast read/write of individual records. Example: Bank transaction system, order management. Optimized for INSERT/UPDATE/DELETE.</li>
+<li><strong>Data Warehouse (OLAP)</strong>: Designed for analytical queries across large historical datasets. Aggregates data from multiple sources. Optimized for complex SELECT queries. Example: Redshift, BigQuery, Snowflake, Azure Synapse.</li>
+</ul>
+<div class="tw"><table><tr><th>Feature</th><th>OLTP Database</th><th>Data Warehouse</th></tr>
+<tr><td>Purpose</td><td>Transactions</td><td>Analytics</td></tr>
+<tr><td>Data</td><td>Current, real-time</td><td>Historical (years)</td></tr>
+<tr><td>Query Type</td><td>Simple, fast</td><td>Complex, slow but on huge data</td></tr>
+<tr><td>Users</td><td>App/system</td><td>Analysts, BI tools</td></tr>
+</table></div>`},
+
+{id:10,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is missing data / null value? Why does it occur and why is it a problem?",
+a:`<p><strong>Missing data (NULL/NaN)</strong> occurs when a value is absent for an observation in a dataset.</p>
+<p><strong>Why it occurs:</strong></p>
+<ul>
+<li>User didn't fill a form field</li>
+<li>System error during data collection</li>
+<li>Field was not applicable (e.g., "spouse name" for unmarried person)</li>
+<li>Merging datasets with different fields</li>
+</ul>
+<p><strong>Why it's a problem:</strong></p>
+<ul>
+<li>Statistical calculations (mean, sum) can be wrong or fail</li>
+<li>Machine learning models can't process NULL values</li>
+<li>Joins may miss records</li>
+<li>Visualizations show gaps or errors</li>
+</ul>
+<p><strong>Solutions:</strong> Remove rows with nulls | Fill with mean/median/mode | Forward fill (time series) | Flag as separate category</p>`},
+
+{id:11,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is an outlier? How do you identify one?",
+a:`<p>An <strong>outlier</strong> is a data point that is significantly different from the rest of the dataset.</p>
+<p><strong>Methods to identify:</strong></p>
+<ul>
+<li><strong>Visual</strong>: Box plot (dots beyond whiskers = outliers), scatter plot</li>
+<li><strong>IQR Method</strong>: Values below Q1 − 1.5×IQR or above Q3 + 1.5×IQR</li>
+<li><strong>Z-Score</strong>: Values with |z| > 3 (more than 3 std deviations from mean)</li>
+</ul>
+<div class="cb">import numpy as np
+z_scores = np.abs((data - data.mean()) / data.std())
+outliers = data[z_scores > 3]</div>
+<div class="wrn">⚠️ Important: Not all outliers are errors! A CEO salary of ₹10 crore is a legitimate outlier in a salary dataset. Always investigate the cause before removing.</div>`},
+
+{id:12,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is data normalization vs standardization?",
+a:`<ul>
+<li><strong>Normalization (Min-Max Scaling)</strong>: Rescales data to a fixed range, usually [0, 1].
+Formula: x' = (x − min) / (max − min)
+Use when: You need bounded values, features on different scales (e.g., age 18-60 vs salary 20000-200000)</li>
+<li><strong>Standardization (Z-Score)</strong>: Centers data around 0 with std deviation of 1.
+Formula: x' = (x − mean) / std_dev
+Use when: Data follows (approximately) normal distribution, for PCA, linear regression</li>
+</ul>
+<div class="cb">from sklearn.preprocessing import MinMaxScaler, StandardScaler
+scaler = MinMaxScaler()
+df_scaled = scaler.fit_transform(df[["age","salary"]])</div>
+<div class="tip">💡 As an analyst (not ML engineer), you'll mainly use this when preparing data for a model or comparing columns on different scales in a chart.</div>`},
+
+{id:13,cat:"Basics",diff:"Medium",co:["All Companies"],
+q:"What is the difference between a bar chart and a histogram?",
+a:`<ul>
+<li><strong>Bar Chart</strong>: Used for <em>categorical</em> data. Each bar represents a category. Bars are separated (gaps). X-axis = categories (Product A, B, C). Example: Sales by product category.</li>
+<li><strong>Histogram</strong>: Used for <em>continuous numerical</em> data. Shows frequency distribution. Bars are connected (no gaps). X-axis = value ranges (bins). Example: Distribution of customer ages.</li>
+</ul>
+<div class="tw"><table><tr><th>Feature</th><th>Bar Chart</th><th>Histogram</th></tr>
+<tr><td>Data type</td><td>Categorical</td><td>Numerical (continuous)</td></tr>
+<tr><td>X-axis</td><td>Categories</td><td>Value ranges (bins)</td></tr>
+<tr><td>Gaps between bars</td><td>Yes</td><td>No (touching)</td></tr>
+<tr><td>Purpose</td><td>Compare groups</td><td>Show distribution</td></tr>
+</table></div>`},
+
+{id:14,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is data granularity? Why does it matter?",
+a:`<p><strong>Granularity</strong> refers to the level of detail at which data is stored or reported.</p>
+<ul>
+<li><strong>Fine granularity</strong>: Very detailed. Example: Sales data at transaction level (each individual sale with timestamp, product, quantity, price).</li>
+<li><strong>Coarse granularity</strong>: Aggregated. Example: Total sales per month per region.</li>
+</ul>
+<p><strong>Why it matters:</strong></p>
+<ul>
+<li>Fine grain = more storage needed, more analysis options</li>
+<li>Coarse grain = smaller, faster, but can't drill down</li>
+<li>You can always aggregate fine data → coarse, but you CANNOT disaggregate coarse → fine</li>
+</ul>
+<div class="tip">💡 Always store data at the finest granularity possible. You can always summarize later, but you can never "unsummarize".</div>`},
+
+{id:15,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What tools does a data analyst use day-to-day?",
+a:`<div class="tw"><table><tr><th>Category</th><th>Tools</th></tr>
+<tr><td>Spreadsheets</td><td>Excel, Google Sheets</td></tr>
+<tr><td>Databases / SQL</td><td>MySQL, PostgreSQL, BigQuery, SQL Server</td></tr>
+<tr><td>Programming</td><td>Python (Pandas, NumPy, Matplotlib, Seaborn), R</td></tr>
+<tr><td>BI / Dashboards</td><td>Power BI, Tableau, Looker, Metabase</td></tr>
+<tr><td>Data Warehouses</td><td>Snowflake, BigQuery, Redshift</td></tr>
+<tr><td>Version Control</td><td>Git, GitHub</td></tr>
+<tr><td>Notebooks</td><td>Jupyter Notebook, Google Colab</td></tr>
+<tr><td>Communication</td><td>PowerPoint, Google Slides, Notion</td></tr>
+</table></div>
+<div class="tip">💡 For a fresher/intern: Focus on Excel + SQL + Python (Pandas) + Power BI. These 4 cover 90% of what you'll be asked to do.</div>`},
+
+{id:16,cat:"Basics",diff:"Medium",co:["All Companies"],
+q:"What is a primary key and a foreign key in a database?",
+a:`<ul>
+<li><strong>Primary Key (PK)</strong>: A column (or combination) that uniquely identifies each row in a table. Cannot be NULL. Cannot have duplicates.
+Example: customer_id in Customers table (each customer has a unique ID).</li>
+<li><strong>Foreign Key (FK)</strong>: A column in one table that references the primary key of another table. Creates a link (relationship) between tables.
+Example: customer_id in Orders table references customer_id in Customers table.</li>
+</ul>
+<div class="cb">Customers table: customer_id (PK) | name | email
+Orders table:    order_id (PK) | customer_id (FK) | amount | date
+↑ customer_id in Orders links to customer_id in Customers</div>
+<div class="tip">💡 This is how databases avoid storing customer name in every order row — they just store the customer_id and JOIN when needed. This is called normalization.</div>`},
+
+{id:17,cat:"Basics",diff:"Easy",co:["All Companies"],
+q:"What is data cleaning and why is it important?",
+a:`<p>Data cleaning (also called data wrangling or data munging) is the process of detecting and fixing or removing incorrect, incomplete, duplicate, or improperly formatted data from a dataset.</p>
+<p><strong>Why important:</strong> "Garbage In, Garbage Out" — if your input data is wrong, your analysis will be wrong regardless of how sophisticated your methods are.</p>
+<p><strong>Common cleaning tasks:</strong></p>
+<ul>
+<li>Handling missing values (NULL, NaN, empty cells)</li>
+<li>Removing duplicate rows</li>
+<li>Fixing inconsistent formatting ("Mumbai", "mumbai", "MUMBAI")</li>
+<li>Correcting wrong data types (dates stored as strings)</li>
+<li>Removing/treating outliers</li>
+<li>Fixing structural errors (typos in category names)</li>
+</ul>
+<div class="tip">💡 In practice, data cleaning consumes 70-80% of an analyst's time on any project. Don't be surprised — this is normal!</div>`},
+
+{id:18,cat:"Basics",diff:"Medium",co:["All Companies"],
+q:"What is the difference between wide and long (tidy) data format?",
+a:`<ul>
+<li><strong>Wide format</strong>: Each variable has its own column. Each row is one subject. Good for Excel pivot tables and human reading.
+Example: <code>Name | Jan_Sales | Feb_Sales | Mar_Sales</code></li>
+<li><strong>Long format (Tidy)</strong>: Each row is one observation. One column for variable names, one for values. Better for analysis in Python/R and creating charts.
+Example: <code>Name | Month | Sales</code></li>
+</ul>
+<div class="cb"># Wide → Long (melt)
+df_long = df.melt(id_vars=["Name"], var_name="Month", value_name="Sales")
+
+# Long → Wide (pivot)
+df_wide = df_long.pivot(index="Name", columns="Month", values="Sales")</div>
+<div class="tip">💡 Most analysis libraries (Seaborn, ggplot2) prefer long format. Most human-readable reports use wide format.</div>`},
+
+// ===== SQL =====
+{id:19,cat:"SQL",diff:"Easy",co:["TCS","Wipro","Infosys"],
+q:"What are DDL, DML, DCL, and TCL commands in SQL?",
+a:`<ul>
+<li><strong>DDL (Data Definition Language)</strong>: Define structure. CREATE TABLE, ALTER TABLE, DROP TABLE, TRUNCATE</li>
+<li><strong>DML (Data Manipulation Language)</strong>: Manipulate data. SELECT, INSERT, UPDATE, DELETE</li>
+<li><strong>DCL (Data Control Language)</strong>: Control access. GRANT, REVOKE</li>
+<li><strong>TCL (Transaction Control Language)</strong>: Manage transactions. COMMIT, ROLLBACK, SAVEPOINT</li>
+</ul>
+<div class="cb"><span class="cm">-- DDL</span>
+<span class="kw">CREATE TABLE</span> employees (id <span class="kw">INT PRIMARY KEY</span>, name <span class="kw">VARCHAR</span>(<span class="nm">50</span>), salary <span class="kw">DECIMAL</span>);
+<span class="cm">-- DML</span>
+<span class="kw">INSERT INTO</span> employees <span class="kw">VALUES</span> (<span class="nm">1</span>, <span class="st">'Alice'</span>, <span class="nm">60000</span>);
+<span class="kw">UPDATE</span> employees <span class="kw">SET</span> salary=<span class="nm">65000</span> <span class="kw">WHERE</span> id=<span class="nm">1</span>;</div>`},
+
+{id:20,cat:"SQL",diff:"Easy",co:["All Companies"],
+q:"What is the order of SQL query execution?",
+a:`<p>This is a very common interview question! SQL doesn't execute in the order you write it.</p>
+<p><strong>Execution order:</strong></p>
+<ol>
+<li><strong>FROM / JOIN</strong> — Identify tables and join them</li>
+<li><strong>WHERE</strong> — Filter rows</li>
+<li><strong>GROUP BY</strong> — Group rows</li>
+<li><strong>HAVING</strong> — Filter groups</li>
+<li><strong>SELECT</strong> — Select columns (and calculate expressions)</li>
+<li><strong>DISTINCT</strong> — Remove duplicates</li>
+<li><strong>ORDER BY</strong> — Sort</li>
+<li><strong>LIMIT / TOP</strong> — Limit rows returned</li>
+</ol>
+<div class="wrn">⚠️ This is why you can't use a SELECT alias in WHERE (WHERE runs before SELECT), but you CAN use it in ORDER BY (ORDER BY runs after SELECT).</div>`},
+
+{id:21,cat:"SQL",diff:"Easy",co:["Cognizant","HCL","Capgemini"],
+q:"What is the difference between CHAR and VARCHAR data types?",
+a:`<ul>
+<li><strong>CHAR(n)</strong>: Fixed-length character string. Always stores exactly n characters (pads with spaces). Faster for fixed-length data. Example: CHAR(10) for a 5-char string uses 10 bytes.</li>
+<li><strong>VARCHAR(n)</strong>: Variable-length character string. Stores only as many characters as needed (up to n). Saves space. Example: VARCHAR(50) for "Alice" uses 5 bytes.</li>
+</ul>
+<p><strong>When to use CHAR:</strong> Fixed-length codes (PIN codes, ISO country codes "IN", "US"), where length is always the same.</p>
+<p><strong>When to use VARCHAR:</strong> Names, addresses, emails — anything with variable length.</p>
+<div class="tip">💡 Most modern databases optimize both similarly, but VARCHAR is almost always the right choice for general text data.</div>`},
+
+{id:22,cat:"SQL",diff:"Easy",co:["TCS","Wipro","Infosys"],
+q:"Write a SQL query to find all employees whose salary is above the company average.",
+a:`<div class="cb"><span class="cm">-- Method 1: Subquery</span>
+<span class="kw">SELECT</span> name, salary
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary > (<span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">FROM</span> employees)
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>;
+
+<span class="cm">-- Method 2: Using a variable (MySQL)</span>
+<span class="kw">SELECT</span> name, salary,
+       <span class="fn">AVG</span>(salary) <span class="kw">OVER</span>() <span class="kw">AS</span> company_avg
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary > (<span class="kw">SELECT</span> <span class="fn">AVG</span>(salary) <span class="kw">FROM</span> employees);</div>
+<div class="tip">💡 Follow-up: "Find employees earning more than their department average" — use a correlated subquery or GROUP BY with a join.</div>`},
+
+{id:23,cat:"SQL",diff:"Easy",co:["TCS","Wipro","Infosys"],
+q:"What is the difference between DELETE, TRUNCATE, and DROP?",
+a:`<div class="tw"><table><tr><th>Command</th><th>What It Does</th><th>Rollback?</th><th>WHERE?</th><th>Speed</th></tr>
+<tr><td>DELETE</td><td>Remove specific rows</td><td>Yes</td><td>Yes</td><td>Slow</td></tr>
+<tr><td>TRUNCATE</td><td>Remove ALL rows</td><td>Usually No</td><td>No</td><td>Fast</td></tr>
+<tr><td>DROP</td><td>Remove entire table</td><td>No</td><td>No</td><td>Instant</td></tr>
+</table></div>
+<div class="cb"><span class="kw">DELETE FROM</span> orders <span class="kw">WHERE</span> year = <span class="nm">2020</span>;  <span class="cm">-- selective</span>
+<span class="kw">TRUNCATE TABLE</span> temp_data;               <span class="cm">-- wipe all rows, keep structure</span>
+<span class="kw">DROP TABLE</span> old_logs;                     <span class="cm">-- table gone forever</span></div>
+<div class="tip">💡 Memory trick: DELETE = erase specific rows | TRUNCATE = blank the page | DROP = burn the notebook</div>`},
+
+{id:24,cat:"SQL",diff:"Medium",co:["Amazon","Flipkart","Accenture"],
+q:"What are indexes in SQL and why are they used?",
+a:`<p>An <strong>index</strong> is a data structure that improves the speed of data retrieval operations. Think of it like the index at the back of a book — instead of reading the whole book to find a topic, you look up the index first.</p>
+<div class="cb"><span class="cm">-- Create an index on a frequently queried column</span>
+<span class="kw">CREATE INDEX</span> idx_customer_id <span class="kw">ON</span> orders(customer_id);
+<span class="kw">CREATE INDEX</span> idx_email <span class="kw">ON</span> users(email);
+
+<span class="cm">-- See existing indexes</span>
+<span class="kw">SHOW INDEXES FROM</span> orders;</div>
+<p><strong>Pros:</strong> Dramatically faster SELECT queries on indexed columns.</p>
+<p><strong>Cons:</strong> Slows down INSERT/UPDATE/DELETE (index must be updated too). Takes extra storage.</p>
+<div class="tip">💡 Index columns you frequently use in WHERE, JOIN ON, and ORDER BY clauses. Don't index every column — it hurts write performance.</div>`},
+
+{id:25,cat:"SQL",diff:"Medium",co:["Amazon","Zomato","Swiggy"],
+q:"Write a SQL query to find the second highest salary from an Employee table.",
+a:`<div class="cb"><span class="cm">-- Method 1: Subquery</span>
+<span class="kw">SELECT MAX</span>(salary) <span class="kw">AS</span> second_highest
+<span class="kw">FROM</span> employees
+<span class="kw">WHERE</span> salary < (<span class="kw">SELECT MAX</span>(salary) <span class="kw">FROM</span> employees);
+
+<span class="cm">-- Method 2: DENSE_RANK (handles ties correctly)</span>
+<span class="kw">WITH</span> ranked <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> salary, <span class="fn">DENSE_RANK</span>() <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>) <span class="kw">AS</span> rnk
+  <span class="kw">FROM</span> employees
+)
+<span class="kw">SELECT</span> salary <span class="kw">FROM</span> ranked <span class="kw">WHERE</span> rnk = <span class="nm">2</span>;
+
+<span class="cm">-- Nth highest (general): change LIMIT offset</span>
+<span class="kw">SELECT DISTINCT</span> salary <span class="kw">FROM</span> employees
+<span class="kw">ORDER BY</span> salary <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="nm">1</span> <span class="kw">OFFSET</span> <span class="nm">1</span>;  <span class="cm">-- 2nd highest</span></div>
+<div class="tip">💡 DENSE_RANK approach is best — it handles ties (two people with same highest salary) correctly.</div>`},
+
+{id:26,cat:"SQL",diff:"Medium",co:["Amazon","Google","Deloitte"],
+q:"Write a query to find customers who placed orders in 2023 but NOT in 2024.",
+a:`<div class="cb"><span class="cm">-- Method 1: NOT IN (simple)</span>
+<span class="kw">SELECT DISTINCT</span> customer_id
+<span class="kw">FROM</span> orders
+<span class="kw">WHERE YEAR</span>(order_date) = <span class="nm">2023</span>
+  <span class="kw">AND</span> customer_id <span class="kw">NOT IN</span> (
+    <span class="kw">SELECT</span> customer_id <span class="kw">FROM</span> orders
+    <span class="kw">WHERE YEAR</span>(order_date) = <span class="nm">2024</span>
+  );
+
+<span class="cm">-- Method 2: EXCEPT (cleaner)</span>
+<span class="kw">SELECT</span> customer_id <span class="kw">FROM</span> orders <span class="kw">WHERE YEAR</span>(order_date) = <span class="nm">2023</span>
+<span class="kw">EXCEPT</span>
+<span class="kw">SELECT</span> customer_id <span class="kw">FROM</span> orders <span class="kw">WHERE YEAR</span>(order_date) = <span class="nm">2024</span>;
+
+<span class="cm">-- Method 3: LEFT JOIN + NULL check</span>
+<span class="kw">SELECT DISTINCT</span> a.customer_id
+<span class="kw">FROM</span> orders a
+<span class="kw">LEFT JOIN</span> orders b <span class="kw">ON</span> a.customer_id=b.customer_id <span class="kw">AND YEAR</span>(b.order_date)=<span class="nm">2024</span>
+<span class="kw">WHERE YEAR</span>(a.order_date)=<span class="nm">2023</span> <span class="kw">AND</span> b.customer_id <span class="kw">IS NULL</span>;</div>`},
+
+{id:27,cat:"SQL",diff:"Medium",co:["Uber","Swiggy","Paytm"],
+q:"Find the top 3 products by total revenue in each category.",
+a:`<div class="cb"><span class="kw">WITH</span> ranked <span class="kw">AS</span> (
+  <span class="kw">SELECT</span>
+    category, product_name,
+    <span class="fn">SUM</span>(revenue) <span class="kw">AS</span> total_rev,
+    <span class="fn">RANK</span>() <span class="kw">OVER</span>(
+      <span class="kw">PARTITION BY</span> category
+      <span class="kw">ORDER BY</span> <span class="fn">SUM</span>(revenue) <span class="kw">DESC</span>
+    ) <span class="kw">AS</span> rnk
+  <span class="kw">FROM</span> sales
+  <span class="kw">GROUP BY</span> category, product_name
+)
+<span class="kw">SELECT</span> category, product_name, total_rev
+<span class="kw">FROM</span> ranked <span class="kw">WHERE</span> rnk <= <span class="nm">3</span>;</div>
+<div class="tip">💡 Use DENSE_RANK instead of RANK if ties should not skip ranks (1,1,3 with RANK vs 1,1,2 with DENSE_RANK).</div>`},
+
+{id:28,cat:"SQL",diff:"Medium",co:["Paytm","PhonePe","HDFC"],
+q:"Calculate month-over-month revenue growth percentage.",
+a:`<div class="cb"><span class="kw">WITH</span> monthly <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> <span class="fn">DATE_FORMAT</span>(order_date,<span class="st">'%Y-%m'</span>) <span class="kw">AS</span> month,
+         <span class="fn">SUM</span>(revenue) <span class="kw">AS</span> total
+  <span class="kw">FROM</span> orders <span class="kw">GROUP BY</span> <span class="nm">1</span>
+)
+<span class="kw">SELECT</span> month, total,
+  <span class="fn">LAG</span>(total) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> month) <span class="kw">AS</span> prev_month,
+  <span class="fn">ROUND</span>(
+    (total - <span class="fn">LAG</span>(total) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> month))
+    / <span class="fn">LAG</span>(total) <span class="kw">OVER</span>(<span class="kw">ORDER BY</span> month) * <span class="nm">100</span>, <span class="nm">2</span>
+  ) <span class="kw">AS</span> growth_pct
+<span class="kw">FROM</span> monthly;</div>
+<p><strong>LAG()</strong> accesses the previous row's value — essential for period-over-period comparisons.</p>`},
+
+{id:29,cat:"SQL",diff:"Hard",co:["Microsoft","Goldman Sachs"],
+q:"Find users who logged in on consecutive days (streak detection).",
+a:`<div class="cb"><span class="kw">WITH</span> date_diff <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> user_id, login_date,
+    <span class="fn">DATE_SUB</span>(login_date, <span class="kw">INTERVAL</span>
+      <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span>(<span class="kw">PARTITION BY</span> user_id <span class="kw">ORDER BY</span> login_date)
+    <span class="kw">DAY</span>) <span class="kw">AS</span> grp
+  <span class="kw">FROM</span> logins
+),
+streaks <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> user_id, grp, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> streak_len
+  <span class="kw">FROM</span> date_diff <span class="kw">GROUP BY</span> user_id, grp
+)
+<span class="kw">SELECT</span> user_id, <span class="fn">MAX</span>(streak_len) <span class="kw">AS</span> longest_streak
+<span class="kw">FROM</span> streaks <span class="kw">GROUP BY</span> user_id;</div>
+<div class="tip">💡 Trick: Subtract row_number from date — consecutive dates produce the same "group" value when subtracted.</div>`},
+
+{id:30,cat:"SQL",diff:"Medium",co:["Ola","Rapido"],
+q:"Find duplicate rows based on email and delete them keeping only the first entry.",
+a:`<div class="cb"><span class="cm">-- See duplicates first</span>
+<span class="kw">SELECT</span> email, <span class="fn">COUNT</span>(*) <span class="kw">AS</span> cnt
+<span class="kw">FROM</span> users <span class="kw">GROUP BY</span> email <span class="kw">HAVING</span> <span class="fn">COUNT</span>(*) > <span class="nm">1</span>;
+
+<span class="cm">-- Delete keeping only the minimum id</span>
+<span class="kw">DELETE FROM</span> users
+<span class="kw">WHERE</span> id <span class="kw">NOT IN</span> (
+  <span class="kw">SELECT</span> <span class="fn">MIN</span>(id) <span class="kw">FROM</span> users <span class="kw">GROUP BY</span> email
+);
+
+<span class="cm">-- Using ROW_NUMBER (PostgreSQL/SQL Server)</span>
+<span class="kw">WITH</span> dupes <span class="kw">AS</span> (
+  <span class="kw">SELECT</span> id, <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span>(<span class="kw">PARTITION BY</span> email <span class="kw">ORDER BY</span> id) <span class="kw">AS</span> rn
+  <span class="kw">FROM</span> users
+)
+<span class="kw">DELETE FROM</span> users <span class="kw">WHERE</span> id <span class="kw">IN</span> (<span class="kw">SELECT</span> id <span class="kw">FROM</span> dupes <span class="kw">WHERE</span> rn > <span class="nm">1</span>);</div>`},
+
+{id:31,cat:"SQL",diff:"Easy",co:["Infosys","Wipro","TCS"],
+q:"What is a NULL value in SQL? How is it different from 0 or empty string?",
+a:`<ul>
+<li><strong>NULL</strong>: Absence of a value — unknown/not applicable. Not the same as zero or empty string.</li>
+<li><strong>0</strong>: Actual numeric value meaning zero.</li>
+<li><strong>''</strong>: Actual string with zero characters.</li>
+</ul>
+<div class="cb"><span class="cm">-- WRONG: this will NOT find NULLs</span>
+<span class="kw">WHERE</span> salary = <span class="kw">NULL</span>  <span class="cm">-- never works!</span>
+
+<span class="cm">-- CORRECT:</span>
+<span class="kw">WHERE</span> salary <span class="kw">IS NULL</span>
+<span class="kw">WHERE</span> salary <span class="kw">IS NOT NULL</span>
+
+<span class="cm">-- Replace NULL with default</span>
+<span class="fn">COALESCE</span>(salary, <span class="nm">0</span>)       <span class="cm">-- returns first non-null</span>
+<span class="fn">ISNULL</span>(salary, <span class="nm">0</span>)         <span class="cm">-- SQL Server</span>
+<span class="fn">IFNULL</span>(salary, <span class="nm">0</span>)         <span class="cm">-- MySQL</span></div>
+<div class="wrn">⚠️ NULL arithmetic: NULL + 5 = NULL. NULL = NULL is FALSE. NULL comparisons always return UNKNOWN.</div>`},
+
+{id:32,cat:"SQL",diff:"Hard",co:["Netflix","Amazon","Razorpay"],
+q:"Write a query to calculate a 7-day rolling average of daily sales.",
+a:`<div class="cb"><span class="kw">SELECT</span>
+  sale_date, daily_sales,
+  <span class="fn">AVG</span>(daily_sales) <span class="kw">OVER</span>(
+    <span class="kw">ORDER BY</span> sale_date
+    <span class="kw">ROWS BETWEEN</span> <span class="nm">6</span> <span class="kw">PRECEDING AND CURRENT ROW</span>
+  ) <span class="kw">AS</span> rolling_7d_avg
+<span class="kw">FROM</span> daily_sales
+<span class="kw">ORDER BY</span> sale_date;</div>
+<p><strong>ROWS BETWEEN 6 PRECEDING AND CURRENT ROW</strong> = this row + 6 before it = 7-row window.</p>
+<div class="tip">💡 Rolling averages smooth out daily noise and reveal true trends — widely used in e-commerce and financial dashboards.</div>`},
+
+// ===== PYTHON =====
+{id:33,cat:"Python",diff:"Easy",co:["All Companies"],
+q:"What is the difference between a list, tuple, set, and dictionary in Python?",
+a:`<div class="tw"><table><tr><th>Type</th><th>Ordered?</th><th>Mutable?</th><th>Duplicates?</th><th>Key-Value?</th></tr>
+<tr><td>List []</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+<tr><td>Tuple ()</td><td>Yes</td><td>No</td><td>Yes</td><td>No</td></tr>
+<tr><td>Set {}</td><td>No</td><td>Yes</td><td>No</td><td>No</td></tr>
+<tr><td>Dict {k:v}</td><td>Yes (3.7+)</td><td>Yes</td><td>Keys: No</td><td>Yes</td></tr>
+</table></div>
+<div class="cb">scores = [85, 92, 78]        # list — ordered, changeable
+coords = (28.6, 77.2)        # tuple — fixed coordinates
+unique = {1, 2, 2, 3}        # set — {1,2,3} (no dupes)
+person = {"name":"Alice","age":25}  # dict — key:value</div>
+<div class="tip">💡 Use tuple for fixed data (coordinates, RGB values). Use set for unique values or fast membership testing. Use dict for structured records.</div>`},
+
+{id:34,cat:"Python",diff:"Easy",co:["TCS","Wipro","Infosys"],
+q:"What is a lambda function in Python? When would you use it in data analysis?",
+a:`<p>A <strong>lambda</strong> is an anonymous, one-line function. Syntax: <code>lambda arguments: expression</code></p>
+<div class="cb"><span class="cm"># Normal function</span>
+<span class="kw">def</span> <span class="fn">double</span>(x): <span class="kw">return</span> x * <span class="nm">2</span>
+
+<span class="cm"># Lambda equivalent</span>
+double = <span class="kw">lambda</span> x: x * <span class="nm">2</span>
+
+<span class="cm"># Common use in Pandas:</span>
+<span class="cm"># Categorize salary levels</span>
+df[<span class="st">"level"</span>] = df[<span class="st">"salary"</span>].<span class="fn">apply</span>(<span class="kw">lambda</span> x: <span class="st">"High"</span> <span class="kw">if</span> x><span class="nm">70000</span> <span class="kw">else</span> <span class="st">"Low"</span>)
+
+<span class="cm"># Sort by length of name</span>
+names.<span class="fn">sort</span>(key=<span class="kw">lambda</span> x: <span class="fn">len</span>(x))
+
+<span class="cm"># Custom aggregation</span>
+df.<span class="fn">groupby</span>(<span class="st">"dept"</span>)[<span class="st">"salary"</span>].<span class="fn">agg</span>(<span class="kw">lambda</span> x: x.<span class="fn">max</span>() - x.<span class="fn">min</span>())</div>`},
+
+{id:35,cat:"Python",diff:"Easy",co:["Wipro","Cognizant","HCL"],
+q:"What is the difference between loc[] and iloc[] in Pandas?",
+a:`<ul>
+<li><strong>loc[]</strong>: Label-based. Uses row/column names or boolean conditions.</li>
+<li><strong>iloc[]</strong>: Position-based. Uses 0-based integer positions.</li>
+</ul>
+<div class="cb"><span class="cm"># loc — label based</span>
+df.<span class="fn">loc</span>[<span class="nm">0</span>, <span class="st">'salary'</span>]             <span class="cm"># row label 0, col 'salary'</span>
+df.<span class="fn">loc</span>[df[<span class="st">'dept'</span>]==<span class="st">'Sales'</span>]    <span class="cm"># boolean filter</span>
+df.<span class="fn">loc</span>[<span class="nm">0</span>:<span class="nm">5</span>, [<span class="st">'name'</span>,<span class="st">'salary'</span>]]  <span class="cm"># rows 0-5, two cols</span>
+
+<span class="cm"># iloc — position based</span>
+df.<span class="fn">iloc</span>[<span class="nm">0</span>, <span class="nm">2</span>]                   <span class="cm"># first row, third column</span>
+df.<span class="fn">iloc</span>[<span class="nm">0</span>:<span class="nm">5</span>, :]                 <span class="cm"># first 5 rows, all cols</span>
+df.<span class="fn">iloc</span>[-<span class="nm">1</span>, :]                  <span class="cm"># last row</span></div>
+<div class="wrn">⚠️ Trap: After filtering, the integer index may not match position! df.iloc[0] gets position 0, df.loc[0] gets the row labeled 0.</div>`},
+
+{id:36,cat:"Python",diff:"Medium",co:["Meesho","Swiggy","Nykaa"],
+q:"How do you merge two DataFrames? Explain all join types.",
+a:`<div class="cb"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># Inner join — only matching rows</span>
+pd.<span class="fn">merge</span>(df1, df2, on=<span class="st">'cust_id'</span>, how=<span class="st">'inner'</span>)
+
+<span class="cm"># Left join — all left, matched right</span>
+pd.<span class="fn">merge</span>(df1, df2, on=<span class="st">'cust_id'</span>, how=<span class="st">'left'</span>)
+
+<span class="cm"># Right join — all right, matched left</span>
+pd.<span class="fn">merge</span>(df1, df2, on=<span class="st">'cust_id'</span>, how=<span class="st">'right'</span>)
+
+<span class="cm"># Outer join — all rows from both</span>
+pd.<span class="fn">merge</span>(df1, df2, on=<span class="st">'cust_id'</span>, how=<span class="st">'outer'</span>)
+
+<span class="cm"># Different column names in each table</span>
+pd.<span class="fn">merge</span>(df1, df2, left_on=<span class="st">'user_id'</span>, right_on=<span class="st">'id'</span>)
+
+<span class="cm"># Stack rows (similar to SQL UNION)</span>
+pd.<span class="fn">concat</span>([df1, df2], ignore_index=<span class="kw">True</span>)</div>`},
+
+{id:37,cat:"Python",diff:"Medium",co:["Amazon","Flipkart"],
+q:"Write Python code to detect and remove outliers using the IQR method.",
+a:`<div class="cb"><span class="kw">def</span> <span class="fn">remove_outliers_iqr</span>(df, col):
+    Q1 = df[col].<span class="fn">quantile</span>(<span class="nm">0.25</span>)
+    Q3 = df[col].<span class="fn">quantile</span>(<span class="nm">0.75</span>)
+    IQR = Q3 - Q1
+    lower, upper = Q1 - <span class="nm">1.5</span>*IQR, Q3 + <span class="nm">1.5</span>*IQR
+    
+    outliers = df[(df[col] < lower) | (df[col] > upper)]
+    print(<span class="fn">f</span><span class="st">"{len(outliers)} outliers in '{col}': {lower:.1f} to {upper:.1f}"</span>)
+    <span class="kw">return</span> df[(df[col] >= lower) & (df[col] <= upper)]
+
+df_clean = <span class="fn">remove_outliers_iqr</span>(df, <span class="st">'salary'</span>)</div>
+<div class="tip">💡 This is the same rule matplotlib boxplot uses for whiskers. Points beyond whiskers = dots = outliers.</div>`},
+
+{id:38,cat:"Python",diff:"Medium",co:["Deloitte","EY","KPMG"],
+q:"What is groupby() in Pandas? Explain with a real example.",
+a:`<p>groupby() splits data into groups based on column values, applies a function to each group, and combines results (Split-Apply-Combine pattern).</p>
+<div class="cb"><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="cm"># Average salary by department</span>
+df.<span class="fn">groupby</span>(<span class="st">'dept'</span>)[<span class="st">'salary'</span>].<span class="fn">mean</span>()
+
+<span class="cm"># Multiple aggregations</span>
+df.<span class="fn">groupby</span>(<span class="st">'dept'</span>).<span class="fn">agg</span>({
+    <span class="st">'salary'</span>: [<span class="st">'mean'</span>, <span class="st">'min'</span>, <span class="st">'max'</span>, <span class="st">'count'</span>],
+    <span class="st">'age'</span>: <span class="st">'median'</span>
+})
+
+<span class="cm"># Group by multiple columns</span>
+df.<span class="fn">groupby</span>([<span class="st">'dept'</span>, <span class="st">'city'</span>])[<span class="st">'revenue'</span>].<span class="fn">sum</span>()
+
+<span class="cm"># Transform — add group mean as new column</span>
+df[<span class="st">'dept_avg'</span>] = df.<span class="fn">groupby</span>(<span class="st">'dept'</span>)[<span class="st">'salary'</span>].<span class="fn">transform</span>(<span class="st">'mean'</span>)</div>`},
+
+{id:39,cat:"Python",diff:"Easy",co:["TCS","Wipro","Mphasis"],
+q:"What is the difference between apply(), map(), and applymap() in Pandas?",
+a:`<ul>
+<li><strong>map()</strong>: Works on a Series only. Element-wise. Good for substitutions via dict.</li>
+<li><strong>apply()</strong>: Works on Series or DataFrame. Row-wise (axis=1) or column-wise (axis=0). Most flexible.</li>
+<li><strong>applymap() / DataFrame.map()</strong>: DataFrame only, applies to every cell. (Renamed to map() in Pandas 2.1+)</li>
+</ul>
+<div class="cb"><span class="cm"># map — series substitution</span>
+df[<span class="st">'dept'</span>].<span class="fn">map</span>({<span class="st">'Sales'</span>:<span class="nm">1</span>, <span class="st">'HR'</span>:<span class="nm">2</span>, <span class="st">'Tech'</span>:<span class="nm">3</span>})
+
+<span class="cm"># apply — row-wise custom logic</span>
+df[<span class="st">'grade'</span>] = df.<span class="fn">apply</span>(<span class="kw">lambda</span> r: <span class="st">'A'</span> <span class="kw">if</span> r[<span class="st">'score'</span>]><span class="nm">90</span> <span class="kw">else</span> <span class="st">'B'</span>, axis=<span class="nm">1</span>)
+
+<span class="cm"># applymap — every cell in DataFrame</span>
+df.<span class="fn">applymap</span>(<span class="kw">lambda</span> x: x.strip() <span class="kw">if</span> <span class="fn">isinstance</span>(x,<span class="fn">str</span>) <span class="kw">else</span> x)</div>`},
+
+{id:40,cat:"Python",diff:"Medium",co:["Google","Microsoft"],
+q:"How do you create a pivot table in Pandas?",
+a:`<div class="cb"><span class="cm"># Basic pivot table</span>
+pivot = df.<span class="fn">pivot_table</span>(
+    values=<span class="st">'sales'</span>,       <span class="cm"># values to aggregate</span>
+    index=<span class="st">'region'</span>,       <span class="cm"># rows</span>
+    columns=<span class="st">'product'</span>,    <span class="cm"># columns</span>
+    aggfunc=<span class="st">'sum'</span>,        <span class="cm"># sum/mean/count/etc</span>
+    fill_value=<span class="nm">0</span>          <span class="cm"># NaN → 0</span>
+)
+
+<span class="cm"># Multiple aggregations</span>
+df.<span class="fn">pivot_table</span>(
+    values=<span class="st">'sales'</span>, index=<span class="st">'region'</span>,
+    aggfunc={<span class="st">'sales'</span>:[<span class="st">'sum'</span>,<span class="st">'mean'</span>,<span class="st">'count'</span>]}
+)
+
+<span class="cm"># Add row/column totals</span>
+df.<span class="fn">pivot_table</span>(values=<span class="st">'sales'</span>, index=<span class="st">'region'</span>,
+               aggfunc=<span class="st">'sum'</span>, margins=<span class="kw">True</span>)</div>
+<p><strong>vs Excel:</strong> Excel pivot tables are GUI drag-and-drop; Pandas ones are code-based and reproducible — better for automated reports.</p>`},
+
+{id:41,cat:"Python",diff:"Hard",co:["Google","Amazon"],
+q:"How would you efficiently process a 10GB CSV file in Python without running out of memory?",
+a:`<div class="cb"><span class="cm"># Method 1: Read in chunks</span>
+chunks = []
+<span class="kw">for</span> chunk <span class="kw">in</span> pd.<span class="fn">read_csv</span>(<span class="st">'huge.csv'</span>, chunksize=<span class="nm">100000</span>):
+    <span class="cm"># Process each chunk</span>
+    chunk_result = chunk[chunk[<span class="st">'status'</span>]==<span class="st">'completed'</span>]
+    chunks.<span class="fn">append</span>(chunk_result)
+result = pd.<span class="fn">concat</span>(chunks, ignore_index=<span class="kw">True</span>)
+
+<span class="cm"># Method 2: Read only needed columns</span>
+df = pd.<span class="fn">read_csv</span>(<span class="st">'huge.csv'</span>, usecols=[<span class="st">'id'</span>,<span class="st">'revenue'</span>,<span class="st">'date'</span>])
+
+<span class="cm"># Method 3: Reduce memory with dtypes</span>
+df[<span class="st">'id'</span>] = df[<span class="st">'id'</span>].<span class="fn">astype</span>(<span class="st">'int32'</span>)   <span class="cm"># int64→int32: halves memory</span>
+df[<span class="st">'cat'</span>] = df[<span class="st">'cat'</span>].<span class="fn">astype</span>(<span class="st">'category'</span>) <span class="cm"># strings→category</span>
+
+<span class="cm"># Method 4: Use Polars (10x faster than Pandas)</span>
+<span class="kw">import</span> polars <span class="kw">as</span> pl
+df = pl.<span class="fn">read_csv</span>(<span class="st">'huge.csv'</span>, low_memory=<span class="kw">True</span>)</div>
+<div class="tip">💡 For truly massive data, use SQL (let the DB engine handle it) or Spark/Dask for distributed computing.</div>`},
+
+// ===== EXCEL =====
+{id:42,cat:"Excel",diff:"Easy",co:["All Companies"],
+q:"What is the difference between VLOOKUP and INDEX-MATCH?",
+a:`<ul>
+<li><strong>VLOOKUP</strong>: Looks in the FIRST column of a range, returns a value from a column to the right. Breaks when you insert columns. Can only look right.</li>
+<li><strong>INDEX-MATCH</strong>: More flexible — can look in any direction, doesn't break with column changes, faster on large datasets.</li>
+</ul>
+<div class="cb"><span class="cm">// VLOOKUP</span>
+=VLOOKUP(A2, $D$2:$F$100, 2, 0)
+<span class="cm">// INDEX-MATCH (preferred)</span>
+=INDEX($E$2:$E$100, MATCH(A2, $D$2:$D$100, 0))</div>
+<p><strong>INDEX-MATCH can look LEFT:</strong> VLOOKUP can't return a value from a column to the left of the lookup column.</p>
+<div class="tip">💡 Professional analysts always use INDEX-MATCH. Knowing it signals seniority in interviews.</div>`},
+
+{id:43,cat:"Excel",diff:"Easy",co:["TCS","HCL","IBM"],
+q:"What is conditional formatting in Excel and when would you use it?",
+a:`<p>Conditional formatting automatically changes the appearance of cells based on their values — applying colors, icons, or data bars.</p>
+<p><strong>Common uses:</strong></p>
+<ul>
+<li><strong>Heat maps</strong>: Color a sales table from red (low) to green (high) to instantly spot patterns</li>
+<li><strong>Highlight duplicates</strong>: Red background on duplicate values</li>
+<li><strong>Data bars</strong>: In-cell bar chart showing relative values</li>
+<li><strong>Traffic lights</strong>: Red/yellow/green icon sets for KPI status</li>
+<li><strong>Top/Bottom rules</strong>: Highlight top 10% or bottom 5% values</li>
+</ul>
+<p>How to apply: <strong>Home → Conditional Formatting → Choose a rule type</strong></p>
+<div class="tip">💡 In internship reports: use color scales on pivot tables to make performance differences immediately visible without the reader having to read every number.</div>`},
+
+{id:44,cat:"Excel",diff:"Easy",co:["All Companies"],
+q:"What is the difference between absolute and relative cell references?",
+a:`<ul>
+<li><strong>Relative reference</strong>: =A1 — changes when you copy the formula to other cells. If you copy =A1+B1 from row 1 to row 2, it becomes =A2+B2.</li>
+<li><strong>Absolute reference</strong>: =$A$1 — stays fixed when copied. The $ sign "locks" the row and/or column.</li>
+<li><strong>Mixed reference</strong>: =$A1 (column locked) or =A$1 (row locked)</li>
+</ul>
+<div class="cb"><span class="cm">// Tax rate in D1, apply to all rows</span>
+=A2 * $D$1    <span class="cm">// D1 stays fixed, A2 changes per row</span>
+
+<span class="cm">// Multiplication table</span>
+=$A2 * B$1    <span class="cm">// mixed — row fixed for headers, col fixed for multiplier</span></div>
+<div class="tip">💡 Shortcut: Press F4 to cycle through A1 → $A$1 → A$1 → $A1 while your cursor is on a cell reference in the formula bar.</div>`},
+
+{id:45,cat:"Excel",diff:"Medium",co:["Deloitte","PwC","KPMG"],
+q:"Explain SUMIFS and COUNTIFS with examples.",
+a:`<p>These allow conditional aggregation with multiple criteria — essential for reporting.</p>
+<div class="cb"><span class="cm">// COUNTIFS — count sales reps in "North" with sales > 50000</span>
+=COUNTIFS(B2:B100, "North", C2:C100, ">50000")
+
+<span class="cm">// SUMIFS — total sales for "Electronics" in Q4 with no returns</span>
+=SUMIFS(D2:D100, B2:B100, "Electronics", C2:C100, "Q4", E2:E100, "No")
+
+<span class="cm">// AVERAGEIFS — average salary for "Tech" dept, city "Mumbai"</span>
+=AVERAGEIFS(D2:D100, B2:B100, "Tech", C2:C100, "Mumbai")</div>
+<p><strong>Syntax:</strong> =SUMIFS(sum_range, range1, criteria1, range2, criteria2, ...)</p>
+<div class="tip">💡 Use cell references instead of hardcoded values so your report updates dynamically: =SUMIFS(D:D, B:B, G2, C:C, H2)</div>`},
+
+{id:46,cat:"Excel",diff:"Medium",co:["All Companies"],
+q:"What is the IFERROR function and why is it important in reports?",
+a:`<p>IFERROR catches formula errors and replaces them with a value you define instead of showing #N/A, #DIV/0!, #REF!.</p>
+<div class="cb"><span class="cm">// Syntax</span>
+=IFERROR(formula, value_if_error)
+
+<span class="cm">// VLOOKUP that won't break when ID not found</span>
+=IFERROR(VLOOKUP(A2, ProductDB, 3, 0), "Not Found")
+
+<span class="cm">// Division without #DIV/0! errors</span>
+=IFERROR(B2/C2, 0)
+
+<span class="cm">// Nested: try VLOOKUP, if error try INDEX-MATCH</span>
+=IFERROR(VLOOKUP(A2,D:F,2,0), IFERROR(INDEX(G:G,MATCH(A2,H:H,0)), "Missing"))</div>
+<div class="wrn">⚠️ Don't just suppress errors blindly — always understand WHY the error is occurring. IFERROR hides the symptom, not the disease.</div>`},
+
+{id:47,cat:"Excel",diff:"Hard",co:["McKinsey","BCG","Bain"],
+q:"How would you build an automated monthly report in Excel that updates when new data is added?",
+a:`<ol>
+<li><strong>Format data as a Table</strong> (Ctrl+T) — auto-expands with new rows, structured references update automatically.</li>
+<li><strong>Build Pivot Tables</strong> linked to the Table (not a fixed range). Right-click → Refresh to update.</li>
+<li><strong>Use slicers</strong> for dynamic filtering (month, region, product).</li>
+<li><strong>Create a Summary tab</strong> with formulas using Table references: =SUMIF(Table1[Region], "North", Table1[Revenue])</li>
+<li><strong>Macro for one-click refresh</strong>: Alt+F8 → Record Macro → RefreshAll → Stop.</li>
+<li><strong>Protect sheets</strong>: Allow users to only input in the data tab.</li>
+</ol>
+<div class="tip">💡 Bonus: Connect to Power Query (Data → Get Data from File/Database) to auto-pull fresh data at open — zero manual work.</div>`},
+
+// ===== STATISTICS =====
+{id:48,cat:"Statistics",diff:"Easy",co:["All Companies"],
+q:"What is the difference between mean, median, and mode?",
+a:`<ul>
+<li><strong>Mean</strong>: Sum ÷ count. Use for symmetrical/normal data without outliers. Example: Average test scores.</li>
+<li><strong>Median</strong>: Middle value when sorted. Robust to outliers. Example: Median house price.</li>
+<li><strong>Mode</strong>: Most frequent value. Use for categorical data. Example: Most common product purchased.</li>
+</ul>
+<div class="cb">data = [10, 20, 20, 30, 40, 40, 40, 1000]
+Mean   = 150  (pulled up by 1000!)
+Median = 35   (middle value, ignores 1000)
+Mode   = 40   (appears 3 times)</div>
+<div class="wrn">⚠️ Classic trick: "India's average income rose 20% — do most people earn more?" Not necessarily! A few ultra-rich individuals can raise mean without the median moving.</div>`},
+
+{id:49,cat:"Statistics",diff:"Easy",co:["All Companies"],
+q:"What is variance and standard deviation? What's the relationship between them?",
+a:`<ul>
+<li><strong>Variance (σ²)</strong>: Average of squared differences from the mean. Hard to interpret (units are squared).</li>
+<li><strong>Standard Deviation (σ)</strong>: Square root of variance. In original units. Easy to interpret.</li>
+</ul>
+<div class="cb">data = [2, 4, 4, 4, 5, 5, 7, 9]
+Mean = 5
+Deviations: [-3, -1, -1, -1, 0, 0, 2, 4]
+Variance = (9+1+1+1+0+0+4+16)/8 = 4
+Std Dev = √4 = 2</div>
+<p><strong>Interpretation:</strong> Std Dev = 2 means data typically falls within ±2 of the mean (3 to 7).</p>
+<p><strong>Real uses:</strong> Finance (volatility), quality control, outlier detection (z-score = (x−mean)/std).</p>`},
+
+{id:50,cat:"Statistics",diff:"Medium",co:["Google","Facebook"],
+q:"What is p-value? How do you interpret p = 0.03?",
+a:`<p>The p-value is the probability of observing results as extreme as yours, assuming the null hypothesis is true.</p>
+<ul>
+<li><strong>p = 0.03</strong>: If H₀ were true, there's only a 3% chance of seeing results this extreme. Since 0.03 &lt; 0.05 (α), we reject H₀ — statistically significant.</li>
+</ul>
+<div class="tw"><table><tr><th>p-value</th><th>Interpretation</th></tr>
+<tr><td>p &lt; 0.05</td><td>Statistically significant — reject H₀</td></tr>
+<tr><td>p &gt; 0.05</td><td>Fail to reject H₀ — insufficient evidence</td></tr>
+<tr><td>p &lt; 0.01</td><td>Highly significant</td></tr>
+</table></div>
+<div class="wrn">⚠️ COMMON MISCONCEPTIONS (asked in interviews!):
+• p = 0.03 does NOT mean "97% chance result is real"
+• p &lt; 0.05 does NOT mean "effect is large or important"
+• Always pair with effect size (Cohen's d, R²)</div>`},
+
+{id:51,cat:"Statistics",diff:"Medium",co:["Amazon","Uber","Razorpay"],
+q:"What is A/B testing? Walk through how to run one for a new checkout button.",
+a:`<p>A/B testing is a controlled experiment comparing two versions to measure which performs better.</p>
+<ol>
+<li><strong>Hypothesis</strong>: "Orange button will increase checkout conversion vs grey button."</li>
+<li><strong>Metric</strong>: Conversion rate = (purchases / clicks) × 100</li>
+<li><strong>Split</strong>: 50% see grey (control), 50% see orange (treatment) — random assignment</li>
+<li><strong>Sample size</strong>: Calculate before starting using power analysis (typically need 1000+ conversions per group)</li>
+<li><strong>Run test</strong>: Run until predetermined sample size reached — DO NOT stop early</li>
+<li><strong>Analyze</strong>: Two-proportion z-test. If p &lt; 0.05 and lift is practical (e.g., +5%), roll out.</li>
+</ol>
+<div class="wrn">⚠️ Biggest mistake: Peeking at results and stopping early when it "looks significant" — this causes false positives (p-hacking).</div>`},
+
+{id:52,cat:"Statistics",diff:"Easy",co:["TCS","Infosys","Wipro"],
+q:"What is correlation? How is it different from causation?",
+a:`<ul>
+<li><strong>Correlation</strong>: Statistical measure of how strongly two variables move together. Range: -1 to +1.</li>
+<li><strong>Causation</strong>: One variable directly causes the other to change.</li>
+<li><strong>Spurious correlation</strong>: Correlation without causation, usually due to a confounding variable.</li>
+</ul>
+<div class="tw"><table><tr><th>r value</th><th>Interpretation</th></tr>
+<tr><td>+1.0</td><td>Perfect positive correlation</td></tr>
+<tr><td>+0.7</td><td>Strong positive</td></tr>
+<tr><td>0.0</td><td>No linear relationship</td></tr>
+<tr><td>-0.7</td><td>Strong negative</td></tr>
+<tr><td>-1.0</td><td>Perfect negative correlation</td></tr>
+</table></div>
+<p><strong>Classic examples of spurious correlation:</strong></p>
+<ul>
+<li>Ice cream sales ↑ and drowning ↑ → Both caused by summer heat</li>
+<li>Shoe size and reading ability in children → Caused by age</li>
+</ul>`},
+
+{id:53,cat:"Statistics",diff:"Easy",co:["All Companies"],
+q:"What is the difference between Type I and Type II errors?",
+a:`<ul>
+<li><strong>Type I Error (False Positive)</strong>: Rejecting H₀ when it's TRUE. We think there's an effect, but there isn't. Probability = α (0.05). Like convicting an innocent person.</li>
+<li><strong>Type II Error (False Negative)</strong>: Failing to reject H₀ when it's FALSE. We miss a real effect. Probability = β. Like acquitting a guilty person.</li>
+</ul>
+<div class="tw"><table><tr><th></th><th>H₀ is TRUE</th><th>H₀ is FALSE</th></tr>
+<tr><td><strong>Reject H₀</strong></td><td>Type I Error ❌</td><td>Correct Power ✓</td></tr>
+<tr><td><strong>Don't reject</strong></td><td>Correct ✓</td><td>Type II Error ❌</td></tr>
+</table></div>
+<p><strong>A/B test context:</strong> Type I = "Rolled out a useless change." Type II = "Threw away a helpful change."</p>
+<div class="tip">💡 To reduce Type I: Lower α. To reduce Type II: Increase sample size. There's always a tradeoff!</div>`},
+
+{id:54,cat:"Statistics",diff:"Medium",co:["Deloitte","BCG"],
+q:"What is the Central Limit Theorem and why does it matter?",
+a:`<p>The CLT states: The distribution of sample means approaches a normal distribution as sample size grows, regardless of the original population's distribution.</p>
+<p><strong>Why it matters:</strong></p>
+<ul>
+<li>Most statistical tests assume normality of the sampling distribution — CLT justifies this even for non-normal raw data</li>
+<li>Rule of thumb: sample size ≥ 30 is usually sufficient</li>
+<li>It's why we can use z-tests and t-tests on real-world data</li>
+</ul>
+<p><strong>Example:</strong> Daily chai stall revenue follows a skewed distribution. But if you take 50 samples of 30-day periods each, the distribution of those 50 monthly averages will be approximately normal — that's the CLT in action.</p>`},
+
+{id:55,cat:"Statistics",diff:"Hard",co:["Google","Stripe"],
+q:"What is multicollinearity? How does it affect regression?",
+a:`<p>Multicollinearity occurs when two or more independent variables in a regression are highly correlated with each other.</p>
+<p><strong>Why it's a problem:</strong></p>
+<ul>
+<li>Can't isolate the individual effect of each correlated variable</li>
+<li>Coefficient estimates become unstable (high variance)</li>
+<li>R² may be high but individual p-values become unreliable</li>
+</ul>
+<p><strong>Detection:</strong></p>
+<ul>
+<li>Correlation matrix: r &gt; 0.8 between predictors is a warning</li>
+<li>VIF (Variance Inflation Factor): VIF &gt; 5 (or 10) = problem</li>
+</ul>
+<p><strong>Fix:</strong> Remove one of correlated variables | PCA | Ridge regression</p>
+<div class="tip">💡 Example: "Hours studied" and "Practice tests completed" are both predictors of exam score — they're highly correlated. Including both confuses the model.</div>`},
+
+// ===== CASE STUDY =====
+{id:56,cat:"Case Study",diff:"Medium",co:["Amazon","Flipkart"],
+q:"Revenue is down 15% this month vs last month. How do you investigate?",
+a:`<p>Show structured top-down thinking — don't guess randomly:</p>
+<ol>
+<li><strong>Confirm data</strong>: Is the 15% real? Check dashboard vs raw data. Any tracking changes?</li>
+<li><strong>Decompose Revenue</strong>: Revenue = Orders × AOV. Which dropped? Both? Segment by channel/product/region.</li>
+<li><strong>Funnel analysis</strong>: Traffic → Sessions → Add to cart → Checkout → Purchase. Where's the biggest drop-off?</li>
+<li><strong>Dimension drill-down</strong>: By product category | region | device | customer type (new vs returning) | channel (organic/paid/email)</li>
+<li><strong>External factors</strong>: Any outages? Competitor sale? Seasonal shift? Marketing budget cut?</li>
+<li><strong>Time pattern</strong>: Gradual decline = systemic issue. Sudden drop = specific event.</li>
+</ol>
+<div class="tip">💡 Framework: Confirm → Decompose → Funnel → Dimensions → External. Show this structure in interview — it's more impressive than jumping to one guess.</div>`},
+
+{id:57,cat:"Case Study",diff:"Hard",co:["Uber","Ola"],
+q:"Driver cancellation rates increased 20%. How do you approach this?",
+a:`<ol>
+<li><strong>Validate</strong>: Confirm the 20% is real (not a data pipeline issue). Check by city, time, driver category.</li>
+<li><strong>Segment analysis</strong>: City | time of day | trip distance | driver rating | incentive tier | new vs experienced</li>
+<li><strong>Hypotheses:</strong>
+  <ul>
+  <li>Incentive reduction → drivers rejecting low-value trips</li>
+  <li>Long-distance trips → drivers prefer short trips for quicker payout</li>
+  <li>New driver onboarding issue → new drivers cancelling more</li>
+  <li>App bug → cancellation flow broken</li>
+  <li>Competitor launched better driver deal</li>
+  </ul>
+</li>
+<li><strong>Impact</strong>: Quantify — GMV lost, rider experience score change, rebooking rate</li>
+<li><strong>Recommendation</strong>: Based on root cause — adjust incentives, better trip-matching algorithm, or penalty policy change</li>
+</ol>`},
+
+{id:58,cat:"Case Study",diff:"Medium",co:["Netflix","Hotstar"],
+q:"MAU dropped 8% after a UI redesign. What's your analysis plan?",
+a:`<ol>
+<li><strong>Validate first</strong>: Check multiple data sources. Did tracking code change with the redesign? Are sessions being counted differently?</li>
+<li><strong>Before/After</strong>: Control for seasonality — compare same period last year. Is drop concentrated exactly at redesign launch?</li>
+<li><strong>Cohort split</strong>: Existing users vs new users — which group is affected more?</li>
+<li><strong>Engagement metrics</strong>: Session length, time-to-content, abandonment rate on key flows</li>
+<li><strong>User feedback</strong>: App store reviews pre/post redesign. Spike in negative reviews?</li>
+<li><strong>Funnel</strong>: Where exactly do users drop off in the new design? Heatmap analysis?</li>
+</ol>
+<div class="tip">💡 Key principle: MAU drop could be a data issue (most likely!), product issue (bad UX), or external issue (content quality drop). Rule them out in this order.</div>`},
+
+{id:59,cat:"Case Study",diff:"Easy",co:["TCS","Accenture"],
+q:"You have a dataset of 10,000 transactions and a report due tomorrow morning. How do you approach it?",
+a:`<ol>
+<li><strong>Clarify first (5 min)</strong>: "What question should this answer? What decision will it inform?" — don't start without knowing the objective.</li>
+<li><strong>Quick data audit (15 min)</strong>: df.info(), df.describe(), df.isnull().sum() — understand what you have.</li>
+<li><strong>Focus on the 20% that gives 80% insight</strong>: Identify 3-5 most impactful metrics, don't try to analyze everything.</li>
+<li><strong>Clean only what you need</strong>: Don't clean every column — clean what's used in the report.</li>
+<li><strong>Build → Visualize → Insights</strong>: Core charts first, then context.</li>
+<li><strong>Format for audience</strong>: Title, 3-bullet findings, supporting charts, one recommendation.</li>
+</ol>
+<div class="wrn">⚠️ If you realize mid-way you need data you don't have, message your manager IMMEDIATELY. Never silently struggle and miss the mark.</div>`},
+
+{id:60,cat:"Case Study",diff:"Hard",co:["McKinsey","Deloitte","BCG"],
+q:"How would you measure and improve retention for a subscription app?",
+a:`<p><strong>Step 1 — Define Retention:</strong></p>
+<ul>
+<li>Day 1/7/30 retention: % of new users still active after N days</li>
+<li>Monthly churn rate: % of subscribers who cancel each month</li>
+<li>Cohort retention curves: How do users acquired in month X retain over 12 months?</li>
+</ul>
+<p><strong>Step 2 — Analyze:</strong></p>
+<ul>
+<li>Identify which user segments have highest/lowest retention (plan type, acquisition channel, usage patterns)</li>
+<li>Find the "activation metric" — users who do X in first 7 days retain 3× better</li>
+<li>Where in the journey do users churn? (before first value moment? after first billing?)</li>
+</ul>
+<p><strong>Step 3 — Improve levers:</strong></p>
+<ul>
+<li>Onboarding improvements → faster time to first value</li>
+<li>Win-back campaigns for recently churned users</li>
+<li>Feature adoption nudges for users at risk</li>
+<li>Pricing experiments (annual vs monthly)</li>
+</ul>`},
+
+// ===== BEHAVIORAL =====
+{id:61,cat:"Behavioral",diff:"Easy",co:["All Companies"],
+q:"Tell me about yourself. (For a data analyst internship)",
+a:`<p><strong>Use this structure (90 seconds max):</strong></p>
+<p><em>"Hi, I'm [Name], a [Year] student of [Degree] at [College]. I've been building data analytics skills for [X months] — I'm proficient in Python (Pandas, Matplotlib), SQL, and Excel, and I've recently started learning Power BI.</em></p>
+<p><em>I've worked on [2 projects briefly] — for example, I did an EDA on [topic] where I found [insight], and built a [dashboard/report] showing [outcome].</em></p>
+<p><em>I'm applying here because [specific reason about company/domain]. I'm excited to apply my skills to real business problems and learn from your team."</em></p>
+<div class="tip">💡 Always end with why THIS company. "I've been following [Company]'s product analytics blog / I use [Product] daily / [Company]'s data-driven culture aligns with how I think" — shows you did research.</div>`},
+
+{id:62,cat:"Behavioral",diff:"Easy",co:["All Companies"],
+q:"Why do you want to be a data analyst?",
+a:`<p><strong>Strong answer components:</strong></p>
+<ul>
+<li><strong>Curiosity</strong>: "I enjoy finding patterns and answering questions with data. It's satisfying when numbers tell a clear story."</li>
+<li><strong>Impact</strong>: "Data analysis directly influences business decisions — I want to be part of that process, not just executing tasks."</li>
+<li><strong>Domain interest</strong>: Tailor to company: "I'm especially drawn to e-commerce analytics / product analytics / fintech data because..."</li>
+<li><strong>Specific moment</strong>: Mention something concrete that got you interested — a course, project, dataset you explored.</li>
+</ul>
+<div class="wrn">⚠️ Avoid: "Because it's in demand" or "Because it pays well." These signal you don't care about the actual work — major red flag.</div>`},
+
+{id:63,cat:"Behavioral",diff:"Medium",co:["Amazon","Deloitte"],
+q:"Tell me about a time your analysis was wrong. What happened and what did you learn?",
+a:`<p>This is a self-awareness and growth-mindset question. Show honesty + systematic learning.</p>
+<p><strong>Structure:</strong></p>
+<ul>
+<li><strong>Be honest</strong>: Don't say "I've never been wrong." Everyone makes errors.</li>
+<li><strong>Mistake clearly</strong>: "I used the wrong date filter — analyzed YTD when the manager needed rolling 12 months."</li>
+<li><strong>Accountability</strong>: "I caught it while cross-checking before the meeting, corrected it, and flagged the discrepancy."</li>
+<li><strong>Systematic fix</strong>: "I now create a checklist: confirm time period, granularity, and metric definition with the requestor BEFORE starting."</li>
+</ul>
+<div class="tip">💡 Interviewers want a SYSTEMATIC fix, not "I'll be more careful." Process improvement shows maturity.</div>`},
+
+{id:64,cat:"Behavioral",diff:"Medium",co:["Amazon","Flipkart","Deloitte"],
+q:"How do you handle a situation where your analysis contradicts what the manager expected?",
+a:`<ol>
+<li><strong>Double-check your work</strong>: Before presenting, re-validate sources, formulas, and methodology.</li>
+<li><strong>Present transparently</strong>: Show data sources, assumptions, and methodology clearly.</li>
+<li><strong>Invite their perspective</strong>: "The data shows X. Can you help me understand if there's context I'm missing?"</li>
+<li><strong>Stand by the data</strong>: "My role is to report what the data says, not what people want to hear. Accurate analysis is the value I provide."</li>
+<li><strong>Find the middle ground</strong>: Maybe both are right from different angles — explore why the gap exists.</li>
+</ol>
+<div class="wrn">⚠️ Never say "I'd change my analysis to match what they want." That's instant disqualification at any data-driven company.</div>`},
+
+{id:65,cat:"Behavioral",diff:"Medium",co:["Flipkart","Swiggy"],
+q:"How do you prioritize when you have multiple analysis requests with the same deadline?",
+a:`<ol>
+<li><strong>Assess impact × urgency</strong>: Which feeds a live business decision vs a weekly report? High-impact + urgent first.</li>
+<li><strong>Communicate proactively</strong>: "I have 3 requests due Friday. Let me confirm which is most critical to each stakeholder."</li>
+<li><strong>Estimate effort</strong>: Can any be simplified? Can two share data prep? Can one be automated?</li>
+<li><strong>Escalate honestly</strong>: "I can deliver A and B fully by Friday. For C, I can do a preliminary version Friday and complete Monday — does that work?"</li>
+</ol>
+<div class="tip">💡 Key message: Proactive communication beats quietly struggling and missing all three. Managers always prefer honesty about bandwidth over missed deadlines with no warning.</div>`},
+
+{id:66,cat:"Behavioral",diff:"Easy",co:["All Companies"],
+q:"Describe a project you're proud of. Walk me through it end-to-end.",
+a:`<p><strong>Structure your answer using this template:</strong></p>
+<ul>
+<li><strong>Context (10%)</strong>: "I analyzed [dataset] for [purpose]. Dataset had [X rows, Y features]."</li>
+<li><strong>Problem/Question (20%)</strong>: "I wanted to understand [specific question] because [business reason]."</li>
+<li><strong>Your process (40%)</strong>: "I cleaned [issues found]. Then did EDA where I noticed [finding]. I built [charts/model/dashboard] using [tools]."</li>
+<li><strong>Insight (20%)</strong>: "The key finding was [X]. This was surprising because [reason]."</li>
+<li><strong>Impact/Learning (10%)</strong>: "This showed that [recommendation]. I learned [skill/concept]."</li>
+</ul>
+<div class="tip">💡 Even a Kaggle project qualifies. The quality of your explanation matters more than the complexity of the project.</div>`},
+
+{id:67,cat:"Behavioral",diff:"Medium",co:["McKinsey","Deloitte"],
+q:"How do you explain a complex data finding to a non-technical audience?",
+a:`<ol>
+<li><strong>Lead with the insight, not the method</strong>: "Mobile churn is 3× higher — here's why." Not: "I ran a chi-square test with α=0.05..."</li>
+<li><strong>Use analogies</strong>: "Think of our funnel like a leaky bucket — we lose 60% of users at payment."</li>
+<li><strong>Visualize, don't tabulate</strong>: One clear bar chart beats a 10-column table.</li>
+<li><strong>State business impact</strong>: "This means we're leaving ₹2Cr/month on the table."</li>
+<li><strong>Anticipate "So what?"</strong>: Always end with a recommendation, not just a finding.</li>
+</ol>
+<div class="tip">💡 Test yourself: Can your grandmother understand your key finding in one sentence? If not, simplify further.</div>`},
+];
+
+// ──────────────────────────────────────────────
+// STATE
+// ──────────────────────────────────────────────
+let cur=0, done=new Set(), solved=new Set();
+let actCat='All', actDiff='All';
+
+// ──────────────────────────────────────────────
+// SIDEBAR
+// ──────────────────────────────────────────────
+function openSB(){
+  document.getElementById('sb').classList.add('op');
+  document.getElementById('ov').classList.add('on');
+}
+function closeSB(){
+  document.getElementById('sb').classList.remove('op');
+  document.getElementById('ov').classList.remove('on');
+}
+
+// ──────────────────────────────────────────────
+// TOPICS
+// ──────────────────────────────────────────────
+function render(i){
+  cur=i;
+  const t=T[i];
+  document.getElementById('ca').innerHTML=t.html;
+  document.getElementById('ttag').textContent=t.tag;
+  document.getElementById('ttitle').textContent=t.title;
+  document.querySelectorAll('.ni[data-t]').forEach((el,j)=>el.classList.toggle('on',j===i));
+  window.scrollTo(0,0);
+  closeSB();
+}
+function nT(){if(cur<T.length-1)render(cur+1);}
+function pT(){if(cur>0)render(cur-1);}
+function mD(){
+  done.add(cur);
+  document.querySelectorAll('.ni[data-t]')[cur].classList.add('dn');
+  const pct=Math.round(done.size/T.length*100);
+  document.getElementById('pi').style.width=pct+'%';
+  document.getElementById('pl').textContent=`${done.size} / ${T.length} topics done`;
+  nT();
+}
+
+// Quiz handler
+function ans(el,ok){
+  const opts=el.parentElement.querySelectorAll('.qopt');
+  opts.forEach(o=>o.style.pointerEvents='none');
+  el.classList.add(ok?'ok':'no');
+  if(!ok) opts.forEach(o=>{if(o.getAttribute('onclick')&&o.getAttribute('onclick').includes('true'))o.classList.add('ok');});
+  const qr=el.closest('.qb').querySelector('.qr');
+  if(qr){qr.classList.add('sh',ok?'ok':'no');}
+}
+
+document.querySelectorAll('.ni[data-t]').forEach((el,i)=>{
+  el.addEventListener('click',()=>render(i));
 });
 
-div.innerHTML=html;
-
-roadmapDiv.appendChild(div);
-
-});
-
-function toggleTopic(id){
-
-const checkbox=document.getElementById(id);
-const topic=document.getElementById("topic-"+id);
-
-localStorage.setItem(id,checkbox.checked);
-
-if(checkbox.checked){
-topic.classList.add("completed");
-}else{
-topic.classList.remove("completed");
+// ──────────────────────────────────────────────
+// PRACTICE
+// ──────────────────────────────────────────────
+function oPrac(){
+  document.getElementById('mn').style.display='none';
+  document.getElementById('pv').classList.add('on');
+  document.querySelectorAll('.ni[data-t]').forEach(el=>el.classList.remove('on'));
+  document.getElementById('pzni').classList.add('on');
+  renderStats(); renderQL();
+  closeSB();
+}
+function cPrac(){
+  document.getElementById('pv').classList.remove('on');
+  document.getElementById('mn').style.display='flex';
+  document.getElementById('pzni').classList.remove('on');
+  render(cur);
+}
+function fC(c){
+  actCat=c;
+  document.querySelectorAll('.ft[data-c]').forEach(t=>t.classList.remove('af'));
+  document.querySelector(`.ft[data-c="${c}"]`).classList.add('af');
+  renderQL();
+}
+function fD(d){
+  actDiff=d;
+  document.querySelectorAll('.ft[data-d]').forEach(t=>t.classList.remove('af'));
+  document.querySelector(`.ft[data-d="${d}"]`).classList.add('af');
+  renderQL();
+}
+function renderStats(){
+  const cats=[
+    {n:'Basics',c:'#22d3ee'},{n:'SQL',c:'var(--a2)'},{n:'Python',c:'var(--a4)'},
+    {n:'Excel',c:'#60a5fa'},{n:'Statistics',c:'var(--a3)'},{n:'Case Study',c:'var(--a5)'},
+    {n:'Behavioral',c:'var(--a6)'},{n:'Solved ✓',c:'var(--a4)',special:true}
+  ];
+  const sr=document.getElementById('sr');
+  sr.innerHTML=cats.map(c=>{
+    const cnt=c.special?solved.size:PQ.filter(q=>q.cat===c.n).length;
+    return `<div class="scard" onclick="${c.special?'':'fC(\''+c.n+'\')'}" style="${c.special?'cursor:default;':''}">
+      <span class="sn" style="color:${c.c}">${cnt}</span>${c.n}</div>`;
+  }).join('');
+}
+function renderQL(){
+  const filtered=PQ.filter(q=>{
+    const cm=actCat==='All'||q.cat===actCat;
+    const dm=actDiff==='All'||q.diff===actDiff;
+    return cm&&dm;
+  });
+  const ql=document.getElementById('ql');
+  if(!filtered.length){
+    ql.innerHTML=`<div class="nr"><div class="bi">🔍</div>No questions match this filter.</div>`;
+    return;
+  }
+  ql.innerHTML=filtered.map((q,i)=>{
+    const ck=q.cat.replace(' ','');
+    const sv=solved.has(q.id);
+    const cos=q.co.slice(0,3).map(c=>`<span class="co">${c}</span>`).join('');
+    return `<div class="qc${sv?' sv':''}" id="qc${q.id}">
+      <div class="qh" onclick="tQ(${q.id})">
+        <div class="qn">#${String(i+1).padStart(2,'0')}</div>
+        <div class="qbd">
+          <div class="qt">${q.q}</div>
+          <div class="qm">
+            <span class="db ${q.diff}">${q.diff}</span>
+            <span class="ctb ${ck}">${q.cat}</span>
+            ${cos}
+            ${sv?'<span class="tg2">✓ solved</span>':''}
+          </div>
+        </div>
+        <div class="qtog">▼</div>
+      </div>
+      <div class="qa">
+        ${q.a}
+        <div class="ab">
+          <span>Did you get it?</span>
+          <button class="mb${sv?' mk':''}" id="mb${q.id}" onclick="markS(${q.id})">${sv?'✓ Solved':'Mark Solved'}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function tQ(id){
+  document.getElementById(`qc${id}`).classList.toggle('op');
+}
+function markS(id){
+  solved.add(id);
+  const btn=document.getElementById(`mb${id}`);
+  if(btn){btn.classList.add('mk');btn.textContent='✓ Solved';btn.style.pointerEvents='none';}
+  const card=document.getElementById(`qc${id}`);
+  if(card)card.classList.add('sv');
+  document.getElementById('sd').textContent=`✓ ${solved.size} solved`;
+  renderStats();
 }
 
-updateProgress();
-
-}
-
-function loadProgress(){
-
-for(let i=0;i<localStorage.length;i++){
-
-const key=localStorage.key(i);
-const value=localStorage.getItem(key);
-
-const checkbox=document.getElementById(key);
-const topic=document.getElementById("topic-"+key);
-
-if(checkbox){
-checkbox.checked=value==="true";
-
-if(value==="true"){
-topic.classList.add("completed");
-}
-}
-
-}
-
-updateProgress();
-
-}
-
-function updateProgress(){
-
-let completed=0;
-
-for(let i=0;i<totalTopics;i++){}
-
-document.querySelectorAll("input[type=checkbox]").forEach(cb=>{
-if(cb.checked)completed++;
-});
-
-const percent=(completed/totalTopics)*100;
-
-document.getElementById("progress").style.width=percent+"%";
-
-}
-
-loadProgress();
-
+// Expose globals
+Object.assign(window,{ans,nT,pT,mD,oPrac,cPrac,fC,fD,tQ,markS,openSB,closeSB});
+render(0);
 </script>
-
 </body>
 </html>
