@@ -6,10 +6,10 @@
 <title>DA Roadmap — Internship Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0f;--su:#111118;--ca:#16161f;--bo:#2a2a3a;--a1:#00e5ff;--a2:#ff6b6b;--a3:#a78bfa;--a4:#34d399;--a5:#f9a86b;--a6:#f472b6;--tx:#e8e8f0;--mu:#6b6b80;--hd:#fff;--sw:256px;}
+:root{--bg:#f4f8ff;--su:#ffffff;--ca:#f7faff;--bo:#d7e2f1;--a1:#2563eb;--a2:#ef4444;--a3:#8b5cf6;--a4:#10b981;--a5:#f59e0b;--a6:#ec4899;--tx:#1f2937;--mu:#64748b;--hd:#0f172a;--sw:256px;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--tx);font-family:'Syne',sans-serif;overflow-x:hidden;}
+body{background:radial-gradient(circle at top right,#e8f0ff 0,#f7fbff 42%,#f4f8ff 100%);color:var(--tx);font-family:'Syne',sans-serif;overflow-x:hidden;}
 #ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:150;backdrop-filter:blur(3px);}
 #ov.on{display:block;}
 /* SIDEBAR */
@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--tx);font-family:'Syne',sans-serif;overflow
 .hb{display:none;position:fixed;top:10px;left:10px;z-index:300;background:var(--su);border:1px solid var(--bo);border-radius:8px;padding:7px 9px;cursor:pointer;font-size:17px;line-height:1;color:var(--tx);}
 /* MAIN */
 #mn{margin-left:var(--sw);display:flex;flex-direction:column;min-height:100vh;}
-.tb{background:var(--su);border-bottom:1px solid var(--bo);padding:10px 28px;display:flex;align-items:center;gap:8px;position:sticky;top:0;z-index:50;flex-wrap:wrap;}
+.tb{background:var(--su);border-bottom:1px solid var(--bo);padding:10px 28px;display:flex;align-items:center;gap:8px;position:sticky;top:0;z-index:50;flex-wrap:wrap;box-shadow:0 4px 18px rgba(37,99,235,.08);}
 .tc{background:var(--ca);border:1px solid var(--bo);border-radius:5px;padding:3px 9px;font-size:10px;font-family:'Space Mono',monospace;color:var(--a1);white-space:nowrap;}
 .tt{font-size:15px;font-weight:700;color:var(--hd);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .btn{background:var(--a1);color:#000;border:none;border-radius:7px;padding:7px 14px;font-weight:700;font-size:11.5px;font-family:'Syne',sans-serif;cursor:pointer;transition:opacity .2s;white-space:nowrap;}
@@ -46,8 +46,8 @@ h1{font-size:26px;font-weight:800;color:var(--hd);line-height:1.2;margin-bottom:
 .bc{font-size:10px;color:var(--mu);font-family:'Space Mono',monospace;margin-bottom:14px;}.bc span{color:var(--a1);}
 .sc{background:var(--ca);border:1px solid var(--bo);border-radius:11px;padding:18px;margin-bottom:14px;}
 .sc h2{font-size:14px;font-weight:700;color:var(--a1);margin-bottom:9px;}
-.sc p,.sc li{font-size:13px;line-height:1.75;color:#c4c4d4;}.sc ul,.sc ol{padding-left:16px;margin-top:6px;}.sc li{margin-bottom:4px;}
-.cb{background:#0c0c17;border:1px solid var(--bo);border-radius:8px;padding:12px 16px;font-family:'Space Mono',monospace;font-size:11px;color:#a8d8ea;overflow-x:auto;margin:9px 0;line-height:1.65;white-space:pre;}
+.sc p,.sc li{font-size:13px;line-height:1.75;color:#334155;}.sc ul,.sc ol{padding-left:16px;margin-top:6px;}.sc li{margin-bottom:4px;}
+.cb{background:#eef4ff;border:1px solid #c6d7f3;border-radius:8px;padding:12px 16px;font-family:'Space Mono',monospace;font-size:11px;color:#1d4ed8;overflow-x:auto;margin:9px 0;line-height:1.65;white-space:pre;}
 .cb .kw{color:var(--a3);}.cb .st{color:var(--a4);}.cb .cm{color:var(--mu);}.cb .fn{color:var(--a2);}.cb .nm{color:var(--a5);}
 .tip{background:rgba(0,229,255,.06);border-left:3px solid var(--a1);border-radius:0 8px 8px 0;padding:9px 13px;margin:9px 0;font-size:12px;color:var(--tx);}
 .wrn{background:rgba(255,107,107,.06);border-left:3px solid var(--a2);border-radius:0 8px 8px 0;padding:9px 13px;margin:9px 0;font-size:12px;color:var(--tx);}
@@ -57,7 +57,7 @@ h1{font-size:26px;font-weight:800;color:var(--hd);line-height:1.2;margin-bottom:
 .tw{overflow-x:auto;margin:9px 0;}
 table{width:100%;border-collapse:collapse;font-size:11.5px;}
 th{background:var(--bo);color:var(--a1);font-family:'Space Mono',monospace;padding:7px 11px;text-align:left;font-size:9.5px;letter-spacing:1px;}
-td{padding:8px 11px;border-bottom:1px solid var(--bo);color:#c4c4d4;vertical-align:top;}
+td{padding:8px 11px;border-bottom:1px solid var(--bo);color:#334155;vertical-align:top;}
 tr:last-child td{border-bottom:none;}
 .qb{background:var(--su);border:1px solid var(--bo);border-radius:11px;padding:16px 18px;margin:14px 0;}
 .qb h3{font-size:11px;color:var(--a3);margin-bottom:10px;font-family:'Space Mono',monospace;}
@@ -147,9 +147,9 @@ tr:last-child td{border-bottom:none;}
 .qa{display:none;border-top:1px solid var(--bo);padding:13px 15px 15px 50px;animation:sd .2s ease;}
 .qc.op .qa{display:block;}
 @keyframes sd{from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:none;}}
-.qa p{font-size:12.5px;line-height:1.73;color:#c4c4d4;margin-bottom:7px;}
+.qa p{font-size:12.5px;line-height:1.73;color:#334155;margin-bottom:7px;}
 .qa ul,.qa ol{padding-left:15px;margin:6px 0;}
-.qa li{font-size:12.5px;line-height:1.68;color:#c4c4d4;margin-bottom:4px;}
+.qa li{font-size:12.5px;line-height:1.68;color:#334155;margin-bottom:4px;}
 .qa .cb{font-size:10.5px;}.qa strong{color:var(--tx);}
 .qa .tip,.qa .wrn{font-size:12px;}
 .qa .tw{margin:7px 0;}
@@ -197,11 +197,9 @@ tr:last-child td{border-bottom:none;}
   <div class="ng"><div class="nl">Foundation</div>
     <div class="ni on" data-t="0"><span class="ic">📊</span>Excel & Spreadsheets<span class="ck">✓</span></div>
     <div class="ni" data-t="1"><span class="ic">📐</span>Statistics & Math<span class="ck">✓</span></div>
-    <a href="sql.html" style="text-decoration:none">
-  <div class="topic-item">
-    🗄️ SQL Databases ✓
-  </div>
-</a>
+    <a href="sql.html" style="text-decoration:none;color:inherit;display:block">
+      <div class="ni"><span class="ic">🗄️</span>SQL Databases<span class="ck" style="display:block">✓</span></div>
+    </a>
   </div>
   <div class="ng"><div class="nl">Programming</div>
     <div class="ni" data-t="3"><span class="ic">🐍</span>Python Basics<span class="ck">✓</span></div>
